@@ -15,6 +15,9 @@ def map_language(language):
         try: return languages.get(alpha2=language.lower())
         except KeyError: pass
     elif len(language) == 3:
+        if dash3:
+            try: return languages.get(alpha3=language.lower())
+            except KeyError: pass
         try: return languages.get(terminology=language.lower())
         except KeyError: pass
         try: return languages.get(bibliographic=language.lower())
@@ -22,12 +25,8 @@ def map_language(language):
     else:
         try: return languages.get(name=language.title())
         except KeyError: pass
-        try: return languages.get(common_name=language.title())
-        except KeyError: pass
         for l in re.split('[,.;: ]+', language):
             try: return languages.get(name=l.title())
-            except KeyError: pass
-            try: return languages.get(common_name=l.title())
             except KeyError: pass
 
 
@@ -108,6 +107,14 @@ assert(map_language('chi') is chinese)
 assert(map_language('ara') is arabic)
 assert(map_language('Arabic, Moroccan Spoken') is arabic)
 
-i = iso639_3()
-print(vars(i.languages[9]))
-print(vars(i.dash3['ary']))
+if dash3:
+    moroccan = languages.get(name='Moroccan Arabic')
+    tzeltal = languages.get(name='Tzeltal')
+    assert(map_language('ary') is moroccan)
+    assert(languages.alpha3['ary'] is moroccan)
+    assert(languages.get(alpha3='ary') is moroccan)
+    assert(map_language('Moroccan Arabic') is moroccan)
+    assert(map_language('Tzeltal') is tzeltal)
+    assert(map_language('tzh') is tzeltal)
+else:
+    assert(map_language('Moroccan Arabic') is arabic)
