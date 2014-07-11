@@ -6,35 +6,42 @@ Licensed under AGPLv3.
 """
 
 import re
-import pycountry
 
 
 def map_language(language):
     if '_' in language:
         language = language.split('_')[0]
     if len(language) == 2:
-        try: return pycountry.languages.get(alpha2=language.lower())
+        try: return languages.get(alpha2=language.lower())
         except KeyError: pass
     elif len(language) == 3:
-        try: return pycountry.languages.get(terminology=language.lower())
+        try: return languages.get(terminology=language.lower())
         except KeyError: pass
-        try: return pycountry.languages.get(bibliographic=language.lower())
+        try: return languages.get(bibliographic=language.lower())
         except KeyError: pass
     else:
-        try: return pycountry.languages.get(name=language.capitalize())
+        try: return languages.get(name=language.title())
         except KeyError: pass
-        try: return pycountry.languages.get(common_name=language.capitalize())
+        try: return languages.get(common_name=language.title())
         except KeyError: pass
         for l in re.split('[,.;: ]+', language):
-            try: return pycountry.languages.get(name=l.capitalize())
+            try: return languages.get(name=l.title())
             except KeyError: pass
-            try: return pycountry.languages.get(common_name=l.capitalize())
+            try: return languages.get(common_name=l.title())
             except KeyError: pass
 
-english = pycountry.languages.get(name='English')
-chinese = pycountry.languages.get(name='Chinese')
-arabic = pycountry.languages.get(name='Arabic')
-bengali = pycountry.languages.get(alpha2='bn')
+""" Use ISO 639-3 ?? """
+dash3 = True
+
+if dash3:
+    languages = iso_639_3()
+else:
+    from pycountry import languages
+
+english = languages.get(name='English')
+chinese = languages.get(name='Chinese')
+arabic = languages.get(name='Arabic')
+bengali = languages.get(alpha2='bn')
 
 assert(map_language('english') is english)
 assert(map_language('English') is english)
@@ -58,6 +65,7 @@ assert(map_language('bangla') is bengali)
 assert(map_language('zho') is chinese)
 assert(map_language('chi') is chinese)
 
+assert(map_language('ara') is arabic)
 assert(map_language('Arabic, Moroccan Spoken') is arabic)
 
 
