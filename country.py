@@ -85,7 +85,6 @@ else:
 english = languages.get(name='English')
 chinese = languages.get(name='Chinese')
 arabic = languages.get(name='Arabic')
-bengali = languages.get(alpha2='bn')
 
 assert(map_language('english') is english)
 assert(map_language('English') is english)
@@ -102,9 +101,6 @@ assert(map_language('en') is english)
 assert(map_language('En_Us') is english)
 assert(map_language('EN_US') is english)
 assert(map_language('en_us') is english)
-
-assert(map_language('bengali') is bengali)
-assert(map_language('bangla') is bengali)
 
 assert(map_language('zho') is chinese)
 assert(map_language('chi') is chinese)
