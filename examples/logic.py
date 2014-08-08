@@ -33,6 +33,9 @@ def map_language(language):
     else:
         try: return languages.get(name=language.title())
         except KeyError: pass
+        if dash3:
+            try: return languages.get(inverted=language.title())
+            except KeyError: pass
         for l in re.split('[,.;: ]+', language):
             try: return languages.get(name=l.title())
             except KeyError: pass
