@@ -10,6 +10,31 @@ import unittest
 from iso_639_3 import iso_639_3, languages
 from examples.logic import map_language
 
+
+class ClassFunctionality(unittest.TestCase):
+    def test_singleton(self):
+        self.assertIs(iso_639_3(), iso_639_3())
+        self.assertIs(iso_639_3().alpha2['en'], iso_639_3().alpha2['en'])
+
+    def test_2_char_code(self):
+        self.assertEqual(languages.get(alpha2='en').name, 'English')
+        self.assertEqual(languages.alpha2['en'].name, 'English')
+
+    def test_3_char_code(self):
+        self.assertEqual(languages.get(alpha3='eng').name, 'English')
+        self.assertEqual(languages.alpha3['eng'].name, 'English')
+
+    def test_inverted(self):
+        self.assertEqual(languages.get(inverted='Arabic, Moroccan').name, 'Moroccan Arabic')
+        self.assertEqual(languages.inverted['Arabic, Moroccan'].name, 'Moroccan Arabic')
+
+    def test_exceptions(self):
+        self.assertRaises(KeyError, languages.get, alpha2='En')
+        self.assertRaises(KeyError, languages.get, name='Moroccan')
+        self.assertRaises(AttributeError, languages.get, alpha1='en')
+        self.assertRaises(AttributeError, languages.get, alpha2='en', name='English')
+
+
 class LogicFunctionality(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
