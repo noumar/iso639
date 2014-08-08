@@ -17,6 +17,12 @@ class LogicFunctionality(unittest.TestCase):
         cls.moroccan = languages.get(name='Moroccan Arabic')
         cls.tzeltal = languages.get(name='Tzeltal')
 
+    def test_logic_2_char_code(self):
+        self.assertIs(map_language('En'), self.english)
+        self.assertIs(map_language('EN'), self.english)
+        self.assertIs(map_language('eN'), self.english)
+        self.assertIs(map_language('en'), self.english)
+
     def test_logic_3_char_code(self):
         self.assertIs(map_language('Eng'), self.english)
         self.assertIs(map_language('eNg'), self.english)
@@ -35,10 +41,6 @@ class LogicFunctionality(unittest.TestCase):
         self.assertIs(map_language('Arabic, Moroccan'), self.moroccan)
         self.assertIs(map_language('Arabic, Moroccan Spoken'), self.arabic)
 
-assert(map_language('En') is english)
-assert(map_language('EN') is english)
-assert(map_language('eN') is english)
-assert(map_language('en') is english)
 assert(map_language('En_Us') is english)
 assert(map_language('EN_US') is english)
 assert(map_language('en_us') is english)
