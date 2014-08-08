@@ -41,9 +41,11 @@ class LogicFunctionality(unittest.TestCase):
         self.assertIs(map_language('Arabic, Moroccan'), self.moroccan)
         self.assertIs(map_language('Arabic, Moroccan Spoken'), self.arabic)
 
-assert(map_language('En_Us') is english)
-assert(map_language('EN_US') is english)
-assert(map_language('en_us') is english)
+    def test_logic_locale(self):
+        self.assertIs(map_language('En_Us'), self.english)
+        self.assertIs(map_language('EN_US'), self.english)
+        self.assertIs(map_language('en_us'), self.english)
+
 
 if dash3:
     assert(map_language('ary') is moroccan)
