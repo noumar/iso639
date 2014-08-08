@@ -17,6 +17,15 @@ class LogicFunctionality(unittest.TestCase):
         cls.moroccan = languages.get(name='Moroccan Arabic')
         cls.tzeltal = languages.get(name='Tzeltal')
 
+    def test_logic_3_char_code(self):
+        self.assertIs(map_language('Eng'), self.english)
+        self.assertIs(map_language('eNg'), self.english)
+        self.assertIs(map_language('enG'), self.english)
+        self.assertIs(map_language('ENG'), self.english)
+        self.assertIs(map_language('eng'), self.english)
+        self.assertIs(map_language('zho'), self.chinese)
+        self.assertIs(map_language('chi'), self.chinese)
+        self.assertIs(map_language('ara'), self.arabic)
 
     def test_logic_name(self):
         self.assertIs(map_language('english'), self.english)
@@ -26,11 +35,6 @@ class LogicFunctionality(unittest.TestCase):
         self.assertIs(map_language('Arabic, Moroccan'), self.moroccan)
         self.assertIs(map_language('Arabic, Moroccan Spoken'), self.arabic)
 
-assert(map_language('Eng') is english)
-assert(map_language('eNg') is english)
-assert(map_language('enG') is english)
-assert(map_language('ENG') is english)
-assert(map_language('eng') is english)
 assert(map_language('En') is english)
 assert(map_language('EN') is english)
 assert(map_language('eN') is english)
@@ -38,11 +42,6 @@ assert(map_language('en') is english)
 assert(map_language('En_Us') is english)
 assert(map_language('EN_US') is english)
 assert(map_language('en_us') is english)
-
-assert(map_language('zho') is chinese)
-assert(map_language('chi') is chinese)
-
-assert(map_language('ara') is arabic)
 
 if dash3:
     assert(map_language('ary') is moroccan)
