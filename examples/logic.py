@@ -1,3 +1,10 @@
+"""
+Convert languages and language codes into ISO names
+
+Copyright (c) 2014 Mikael Karlsson (CSC - IT Center for Science Ltd.).
+Licensed under AGPLv3.
+"""
+
 import re
 
 """ Use ISO 639-3 ?? """
