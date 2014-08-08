@@ -5,6 +5,8 @@ Copyright (c) 2014 Mikael Karlsson (CSC - IT Center for Science Ltd.).
 Licensed under AGPLv3.
 """
 
+import unittest
+
 from iso_639_3 import iso_639_3, languages
 from examples.logic import map_language
 
@@ -58,3 +60,5 @@ class LogicFunctionality(unittest.TestCase):
     def test_logic_dash2(self):
         self.assertEqual(map_language('Moroccan Arabic', False).name, 'Arabic')
 
+if __name__ == '__main__':
+    unittest.main()
