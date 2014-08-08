@@ -46,13 +46,15 @@ class LogicFunctionality(unittest.TestCase):
         self.assertIs(map_language('EN_US'), self.english)
         self.assertIs(map_language('en_us'), self.english)
 
+    def test_logic_dash3(self):
+        self.assertIs(map_language('ary'), self.moroccan)
+        self.assertIs(languages.alpha3['ary'], self.moroccan)
+        self.assertIs(languages.get(alpha3='ary'), self.moroccan)
+        self.assertIs(map_language('Moroccan Arabic'), self.moroccan)
+        self.assertIs(map_language('Tzeltal'), self.tzeltal)
+        self.assertIs(map_language('Tzeltal, Tenejapa'), self.tzeltal)
+        self.assertIs(map_language('tzh'), self.tzeltal)
 
-if dash3:
-    assert(map_language('ary') is moroccan)
-    assert(languages.alpha3['ary'] is moroccan)
-    assert(languages.get(alpha3='ary') is moroccan)
-    assert(map_language('Moroccan Arabic') is moroccan)
-    assert(map_language('Tzeltal') is tzeltal)
-    assert(map_language('tzh') is tzeltal)
-else:
-    assert(map_language('Moroccan Arabic') is arabic)
+    def test_logic_dash2(self):
+        self.assertEqual(map_language('Moroccan Arabic', False).name, 'Arabic')
+
