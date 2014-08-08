@@ -1,7 +1,7 @@
 """
 Convert languages and language codes into ISO names
 
-Copyright (C) 2014 Mikael Karlsson.
+Copyright (c) 2014 Mikael Karlsson (CSC - IT Center for Science Ltd.).
 Licensed under AGPLv3.
 """
 
@@ -75,7 +75,10 @@ class iso_639_3(object):
         self.inverted = {x.inverted: x for x in self.languages if x.inverted}
 
     def get(self, **kwargs):
+        """
+        A simple getter function for languages. Takes 1 keyword/value and returns 1 language object.
+        """
         if not len(kwargs) == 1:
-            raise AttributeError("Only one keyword expected")
+            raise AttributeError('Only one keyword expected')
         key, value = kwargs.popitem()
         return getattr(self, key)[value]
