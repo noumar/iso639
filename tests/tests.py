@@ -11,6 +11,8 @@ from examples.logic import map_language
 english = languages.get(name='English')
 chinese = languages.get(name='Chinese')
 arabic = languages.get(name='Arabic')
+moroccan = languages.get(name='Moroccan Arabic')
+tzeltal = languages.get(name='Tzeltal')
 
 assert(map_language('english') is english)
 assert(map_language('English') is english)
@@ -35,8 +37,6 @@ assert(map_language('ara') is arabic)
 assert(map_language('Arabic, Moroccan Spoken') is arabic)
 
 if dash3:
-    moroccan = languages.get(name='Moroccan Arabic')
-    tzeltal = languages.get(name='Tzeltal')
     assert(map_language('ary') is moroccan)
     assert(languages.alpha3['ary'] is moroccan)
     assert(languages.get(alpha3='ary') is moroccan)
