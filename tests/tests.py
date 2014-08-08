@@ -8,11 +8,15 @@ Licensed under AGPLv3.
 from iso_639_3 import iso_639_3, languages
 from examples.logic import map_language
 
-english = languages.get(name='English')
-chinese = languages.get(name='Chinese')
-arabic = languages.get(name='Arabic')
-moroccan = languages.get(name='Moroccan Arabic')
-tzeltal = languages.get(name='Tzeltal')
+class LogicFunctionality(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.english = languages.get(name='English')
+        cls.chinese = languages.get(name='Chinese')
+        cls.arabic = languages.get(name='Arabic')
+        cls.moroccan = languages.get(name='Moroccan Arabic')
+        cls.tzeltal = languages.get(name='Tzeltal')
+
 
 assert(map_language('english') is english)
 assert(map_language('English') is english)
