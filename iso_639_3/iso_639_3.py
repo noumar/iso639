@@ -51,8 +51,19 @@ class iso_639_3(object):
     """
     This class is a close to drop-in replacement for pycountry.languages.
     But unlike pycountry.languages it also supports ISO 639-3.
+    It implements the Singleton pattern for performance reasons.
     """
+    __instance = None
+
+    def __new__(cls):
+        if cls.__instance is None:
+            cls.__instance = super(cls, cls).__new__(cls)
+        return cls.__instance
+
     def __init__(self):
+        if hasattr(self, 'languages'):
+            return
+
         l, i = _fabtabular()
         self.languages = [_language(a, b, c, d, e, [x[2] for x in i if x[0] == a][0])
                           for a, b, c, d, _, _, e, _ in l]
