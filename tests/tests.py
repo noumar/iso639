@@ -5,15 +5,8 @@ Copyright (c) 2014 Mikael Karlsson (CSC - IT Center for Science Ltd.).
 Licensed under AGPLv3.
 """
 
-from iso_639_3 import map_language, iso_639_3
-
-""" Use ISO 639-3 ?? """
-dash3 = True
-
-if dash3:
-    languages = iso_639_3()
-else:
-    from pycountry import languages
+from iso_639_3 import iso_639_3, languages
+from examples.logic import map_language
 
 english = languages.get(name='English')
 chinese = languages.get(name='Chinese')

@@ -7,16 +7,14 @@ Licensed under AGPLv3.
 
 import re
 
-""" Use ISO 639-3 ?? """
-dash3 = True
 
-if dash3:
-    languages = iso_639_3()
-else:
-    from pycountry import languages
+def map_language(language, dash3=True):
+    """ Use ISO 639-3 ?? """
+    if dash3:
+        from iso_639_3 import languages
+    else:
+        from pycountry import languages
 
-
-def map_language(language):
     if '_' in language:
         language = language.split('_')[0]
     if len(language) == 2:
