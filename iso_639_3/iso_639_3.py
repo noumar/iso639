@@ -34,14 +34,27 @@ def _fabtabular():
             return list(csv.reader(u, delimiter='\t'))[1:], list(csv.reader(i, delimiter='\t'))[1:]
 
 
+class _language(object):
+    """
+    This class represents a language. It imitates the pycountry.language structure.
+    """
+    def __init__(self, dash3, dash2b, dash2t, dash1, name, inverted):
+        self.alpha3 = dash3
+        self.bibliographic = dash2b
+        self.terminology = dash2t
+        self.alpha2 = dash1
+        self.name = name
+        self.inverted = inverted
+
+
 class iso_639_3(object):
     """
     This class is a close to drop-in replacement for pycountry.languages.
     But unlike pycountry.languages it also supports ISO 639-3.
     """
     def __init__(self):
-        self.languages = [self.language(a, b, c, d, e, [x[2] for x in i if x[0] == a][0])
         l, i = _fabtabular()
+        self.languages = [_language(a, b, c, d, e, [x[2] for x in i if x[0] == a][0])
                           for a, b, c, d, _, _, e, _ in l]
         self.alpha3 = {x.alpha3: x for x in self.languages if x.alpha3}
         self.bibliographic = {x.bibliographic: x for x in self.languages if x.bibliographic}
@@ -49,15 +62,6 @@ class iso_639_3(object):
         self.alpha2 = {x.alpha2: x for x in self.languages if x.alpha2}
         self.name = {x.name: x for x in self.languages if x.name}
         self.inverted = {x.inverted: x for x in self.languages if x.inverted}
-
-    class language(object):
-        def __init__(self, dash3, dash2b, dash2t, dash1, name, inverted):
-            self.alpha3 = dash3
-            self.bibliographic = dash2b
-            self.terminology = dash2t
-            self.alpha2 = dash1
-            self.name = name
-            self.inverted = inverted
 
     def get(self, **kwargs):
         if not len(kwargs) == 1:
