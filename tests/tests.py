@@ -23,6 +23,10 @@ class ClassFunctionality(unittest.TestCase):
         self.assertEqual(languages.get(alpha2='en').name, 'English')
         self.assertEqual(languages.alpha2['en'].name, 'English')
 
+    def test_bibliographic(self):
+        self.assertEqual(languages.get(bibliographic='dut').name, 'Dutch')
+        self.assertEqual(languages.bibliographic['dut'].name, 'Dutch')
+
     def test_3_char_code(self):
         self.assertEqual(languages.get(alpha3='eng').name, 'English')
         self.assertEqual(languages.alpha3['eng'].name, 'English')
