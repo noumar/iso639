@@ -12,6 +12,9 @@ from examples.logic import map_language
 
 
 class ClassFunctionality(unittest.TestCase):
+    """
+    Test cases for library class implementation
+    """
     def test_singleton(self):
         self.assertIs(iso_639_3(), iso_639_3())
         self.assertIs(iso_639_3().alpha2['en'], iso_639_3().alpha2['en'])
@@ -36,6 +39,9 @@ class ClassFunctionality(unittest.TestCase):
 
 
 class LogicFunctionality(unittest.TestCase):
+    """
+    Test cases for example logic implementation
+    """
     @classmethod
     def setUpClass(cls):
         cls.english = languages.get(name='English')

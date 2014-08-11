@@ -36,7 +36,7 @@ def _fabtabular():
 
 class _language(object):
     """
-    This class represents a language. It imitates the pycountry.language structure.
+    This class represents a language. It imitates pycountry's language class structure.
     """
     def __init__(self, dash3, dash2b, dash2t, dash1, name, inverted):
         self.alpha3 = dash3
@@ -51,7 +51,7 @@ class iso_639_3(object):
     """
     This class is a close to drop-in replacement for pycountry.languages.
     But unlike pycountry.languages it also supports ISO 639-3.
-    It implements the Singleton pattern for performance reasons.
+    It implements the Singleton design pattern for performance reasons.
     """
     __instance = None
 
