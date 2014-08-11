@@ -35,6 +35,10 @@ class ClassFunctionality(unittest.TestCase):
         self.assertEqual(languages.get(alpha3='eng').name, 'English')
         self.assertEqual(languages.alpha3['eng'].name, 'English')
 
+    def test_name(self):
+        self.assertEqual(languages.get(name='English').alpha3, 'eng')
+        self.assertEqual(languages.name['English'].alpha3, 'eng')
+
     def test_inverted(self):
         self.assertEqual(languages.get(inverted='Arabic, Moroccan').name, 'Moroccan Arabic')
         self.assertEqual(languages.inverted['Arabic, Moroccan'].name, 'Moroccan Arabic')
