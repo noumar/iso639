@@ -1,5 +1,5 @@
 """
-Python library for ISO 639-3 standard
+Python library for ISO 639 standard
 
 Copyright (c) 2014 Mikael Karlsson (CSC - IT Center for Science Ltd.).
 Licensed under AGPLv3.
@@ -7,7 +7,7 @@ Licensed under AGPLv3.
 
 import unittest
 
-from iso_639_3 import iso_639_3, languages
+from iso639 import Iso639, languages
 from examples.logic import map_language
 
 
@@ -16,8 +16,8 @@ class ClassFunctionality(unittest.TestCase):
     Test cases for library class implementation
     """
     def test_singleton(self):
-        self.assertIs(iso_639_3(), iso_639_3())
-        self.assertIs(iso_639_3().alpha2['en'], iso_639_3().alpha2['en'])
+        self.assertIs(Iso639(), Iso639())
+        self.assertIs(Iso639().alpha2['en'], Iso639().alpha2['en'])
 
     def test_2_char_code(self):
         self.assertEqual(languages.get(alpha2='en').name, 'English')

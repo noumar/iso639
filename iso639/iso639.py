@@ -1,5 +1,5 @@
 """
-Python library for ISO 639-3 standard
+Python library for ISO 639 standard
 
 Copyright (c) 2014 Mikael Karlsson (CSC - IT Center for Science Ltd.).
 Licensed under AGPLv3.
@@ -8,7 +8,7 @@ Licensed under AGPLv3.
 
 def _fabtabular():
     """
-    This function retrieves the ISO 639-3 and inverted names datasets as tsv files and returns them as two lists.
+    This function retrieves the ISO 639 and inverted names datasets as tsv files and returns them as two lists.
     """
     import csv
     import sys
@@ -34,7 +34,7 @@ def _fabtabular():
             return list(csv.reader(u, delimiter='\t'))[1:], list(csv.reader(i, delimiter='\t'))[1:]
 
 
-class _language(object):
+class _Language(object):
     """
     This class represents a language. It imitates pycountry's language class structure.
     """
@@ -47,7 +47,7 @@ class _language(object):
         self.inverted = inverted
 
 
-class iso_639_3(object):
+class Iso639(object):
     """
     This class is a close to drop-in replacement for pycountry.languages.
     But unlike pycountry.languages it also supports ISO 639-3.
@@ -65,7 +65,7 @@ class iso_639_3(object):
             return
 
         l, i = _fabtabular()
-        self.languages = [_language(a, b, c, d, e, [x[2] for x in i if x[0] == a][0])
+        self.languages = [_Language(a, b, c, d, e, [x[2] for x in i if x[0] == a][0])
                           for a, b, c, d, _, _, e, _ in l]
         self.alpha3 = {x.alpha3: x for x in self.languages if x.alpha3}
         self.bibliographic = {x.bibliographic: x for x in self.languages if x.bibliographic}
