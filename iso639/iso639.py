@@ -54,25 +54,62 @@ class Iso639(object):
     It implements the Singleton design pattern for performance reasons.
     """
     __instance = None
+    _languages = None
+    _alpha3 = None
+    _bibliographic = None
+    _terminology = None
+    _alpha2 = None
+    _name = None
+    _inverted = None
 
     def __new__(cls):
         if cls.__instance is None:
             cls.__instance = super(cls, cls).__new__(cls)
         return cls.__instance
 
-    def __init__(self):
-        if hasattr(self, 'languages'):
-            return
+    @property
+    def languages(self):
+        if self._languages is None:
+            l, i = _fabtabular()
+            self._languages = [_Language(a, b, c, d, e, [x[2] for x in i if x[0] == a][0])
+                               for a, b, c, d, _, _, e, _ in l]
+        return self._languages
 
-        l, i = _fabtabular()
-        self.languages = [_Language(a, b, c, d, e, [x[2] for x in i if x[0] == a][0])
-                          for a, b, c, d, _, _, e, _ in l]
-        self.alpha3 = {x.alpha3: x for x in self.languages if x.alpha3}
-        self.bibliographic = {x.bibliographic: x for x in self.languages if x.bibliographic}
-        self.terminology = {x.terminology: x for x in self.languages if x.terminology}
-        self.alpha2 = {x.alpha2: x for x in self.languages if x.alpha2}
-        self.name = {x.name: x for x in self.languages if x.name}
-        self.inverted = {x.inverted: x for x in self.languages if x.inverted}
+    @property
+    def alpha3(self):
+        if self._alpha3 is None:
+            self._alpha3 = {x.alpha3: x for x in self.languages if x.alpha3}
+        return self._alpha3
+
+    @property
+    def bibliographic(self):
+        if self._bibliographic is None:
+            self._bibliographic = {x.bibliographic: x for x in self.languages if x.bibliographic}
+        return self._bibliographic
+
+    @property
+    def terminology(self):
+        if self._terminology is None:
+            self._terminology = {x.terminology: x for x in self.languages if x.terminology}
+        return self._terminology
+
+    @property
+    def alpha2(self):
+        if self._alpha2 is None:
+            self._alpha2 = {x.alpha2: x for x in self.languages if x.alpha2}
+        return self._alpha2
+
+    @property
+    def name(self):
+        if self._name is None:
+            self._name = {x.name: x for x in self.languages if x.name}
+        return self._name
+
+    @property
+    def inverted(self):
+        if self._inverted is None:
+            self._inverted = {x.inverted: x for x in self.languages if x.inverted}
+        return self._inverted
 
     def get(self, **kwargs):
         """
