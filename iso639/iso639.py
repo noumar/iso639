@@ -29,9 +29,9 @@ def _fabtabular():
         # import io
         # with io.StringIO(urlopen('http://www-01.sil.org/iso639%2D3/iso-639-3.tab').read().decode()) as u, \
         #         io.StringIO(urlopen('http://www-01.sil.org/iso639-3/iso-639-3_Name_Index.tab').read().decode()) as i:
-        with open(data) as u, \
-                open(inverted) as i:
-            return list(csv.reader(u, delimiter='\t'))[1:], list(csv.reader(i, delimiter='\t'))[1:]
+        with open(data) as u:
+            with open(inverted) as i:
+                return list(csv.reader(u, delimiter='\t'))[1:], list(csv.reader(i, delimiter='\t'))[1:]
 
 
 class _Language(object):
@@ -78,37 +78,37 @@ class Iso639(object):
     @property
     def alpha3(self):
         if self._alpha3 is None:
-            self._alpha3 = {x.alpha3: x for x in self.languages if x.alpha3}
+            self._alpha3 = dict((x.alpha3, x) for x in self.languages if x.alpha3)
         return self._alpha3
 
     @property
     def bibliographic(self):
         if self._bibliographic is None:
-            self._bibliographic = {x.bibliographic: x for x in self.languages if x.bibliographic}
+            self._bibliographic = dict((x.bibliographic, x) for x in self.languages if x.bibliographic)
         return self._bibliographic
 
     @property
     def terminology(self):
         if self._terminology is None:
-            self._terminology = {x.terminology: x for x in self.languages if x.terminology}
+            self._terminology = dict((x.terminology, x) for x in self.languages if x.terminology)
         return self._terminology
 
     @property
     def alpha2(self):
         if self._alpha2 is None:
-            self._alpha2 = {x.alpha2: x for x in self.languages if x.alpha2}
+            self._alpha2 = dict((x.alpha2, x) for x in self.languages if x.alpha2)
         return self._alpha2
 
     @property
     def name(self):
         if self._name is None:
-            self._name = {x.name: x for x in self.languages if x.name}
+            self._name = dict((x.name, x) for x in self.languages if x.name)
         return self._name
 
     @property
     def inverted(self):
         if self._inverted is None:
-            self._inverted = {x.inverted: x for x in self.languages if x.inverted}
+            self._inverted = dict((x.inverted, x) for x in self.languages if x.inverted)
         return self._inverted
 
     def get(self, **kwargs):
