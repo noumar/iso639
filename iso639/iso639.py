@@ -65,8 +65,8 @@ class Iso639(object):
             return
 
         l, i = _fabtabular()
-        self.languages = [_Language(a, b, c, d, e, [x[2] for x in i if x[0] == a][0])
-                          for a, b, c, d, _, _, e, _ in l]
+        i = {x[0]: x for x in i}
+        self.languages = [_Language(a, b, c, d, e, i[a][2]) for a, b, c, d, _, _, e, _ in l]
         self.alpha3 = {x.alpha3: x for x in self.languages if x.alpha3}
         self.bibliographic = {x.bibliographic: x for x in self.languages if x.bibliographic}
         self.terminology = {x.terminology: x for x in self.languages if x.terminology}
