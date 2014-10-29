@@ -11,7 +11,14 @@ from iso639 import Iso639, languages
 from examples.logic import map_language
 
 
-class ClassFunctionality(unittest.TestCase):
+class _AssertIs26:
+    """ assertIs method support for Python 2.6 """
+
+    def assertIs(self, first, second, msg=None):
+        return self.assertTrue(first is second, msg)
+
+
+class ClassFunctionality(unittest.TestCase, _AssertIs26):
     """
     Test cases for library class implementation
     """
@@ -50,12 +57,11 @@ class ClassFunctionality(unittest.TestCase):
         self.assertRaises(AttributeError, languages.get, alpha2='en', name='English')
 
 
-class LogicFunctionality(unittest.TestCase):
+class LogicFunctionality(unittest.TestCase, _AssertIs26):
     """
     Test cases for example logic implementation
     """
-    @classmethod
-    def setUpClass(cls):
+    def setUp(cls):
         cls.english = languages.get(name='English')
         cls.chinese = languages.get(name='Chinese')
         cls.arabic = languages.get(name='Arabic')
