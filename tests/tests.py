@@ -5,13 +5,13 @@ Copyright (c) 2014 Mikael Karlsson (CSC - IT Center for Science Ltd.).
 Licensed under AGPLv3.
 """
 
-import unittest
+import unittest2
 
 from iso639 import Iso639, languages
 from examples.logic import map_language
 
 
-class ClassFunctionality(unittest.TestCase):
+class ClassFunctionality(unittest2.TestCase):
     """
     Test cases for library class implementation
     """
@@ -50,7 +50,7 @@ class ClassFunctionality(unittest.TestCase):
         self.assertRaises(AttributeError, languages.get, alpha2='en', name='English')
 
 
-class LogicFunctionality(unittest.TestCase):
+class LogicFunctionality(unittest2.TestCase):
     """
     Test cases for example logic implementation
     """
@@ -104,4 +104,4 @@ class LogicFunctionality(unittest.TestCase):
         self.assertEqual(map_language('Moroccan Arabic', False).name, 'Arabic')
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest2.main()
