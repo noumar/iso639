@@ -65,14 +65,14 @@ class Iso639(object):
             return
 
         l, i = _fabtabular()
-        i = {x[0]: x for x in i}
+        i = dict((x[0], x) for x in i)
         self.languages = [_Language(a, b, c, d, e, i[a][2]) for a, b, c, d, _, _, e, _ in l]
-        self.alpha3 = {x.alpha3: x for x in self.languages if x.alpha3}
-        self.bibliographic = {x.bibliographic: x for x in self.languages if x.bibliographic}
-        self.terminology = {x.terminology: x for x in self.languages if x.terminology}
-        self.alpha2 = {x.alpha2: x for x in self.languages if x.alpha2}
-        self.name = {x.name: x for x in self.languages if x.name}
-        self.inverted = {x.inverted: x for x in self.languages if x.inverted}
+        self.alpha3 = dict((x.alpha3, x) for x in self.languages if x.alpha3)
+        self.bibliographic = dict((x.bibliographic, x) for x in self.languages if x.bibliographic)
+        self.terminology = dict((x.terminology, x) for x in self.languages if x.terminology)
+        self.alpha2 = dict((x.alpha2, x) for x in self.languages if x.alpha2)
+        self.name = dict((x.name, x) for x in self.languages if x.name)
+        self.inverted = dict((x.inverted, x) for x in self.languages if x.inverted)
 
     def get(self, **kwargs):
         """
