@@ -29,9 +29,9 @@ def _fabtabular():
         # import io
         # with io.StringIO(urlopen('http://www-01.sil.org/iso639%2D3/iso-639-3.tab').read().decode()) as u, \
         #         io.StringIO(urlopen('http://www-01.sil.org/iso639-3/iso-639-3_Name_Index.tab').read().decode()) as i:
-        with open(data) as u, \
-                open(inverted) as i:
-            return list(csv.reader(u, delimiter='\t'))[1:], list(csv.reader(i, delimiter='\t'))[1:]
+        with open(data) as u:
+            with open(inverted) as i:
+                return list(csv.reader(u, delimiter='\t'))[1:], list(csv.reader(i, delimiter='\t'))[1:]
 
 
 class _Language(object):
