@@ -71,8 +71,8 @@ class Iso639(object):
     def languages(self):
         if self._languages is None:
             l, i = _fabtabular()
-            self._languages = [_Language(a, b, c, d, e, [x[2] for x in i if x[0] == a][0])
-                               for a, b, c, d, _, _, e, _ in l]
+            i = dict((x[0], x) for x in i)
+            self._languages = [_Language(a, b, c, d, e, i[a][2]) for a, b, c, d, _, _, e, _ in l]
         return self._languages
 
     @property
