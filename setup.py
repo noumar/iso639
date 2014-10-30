@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='iso639',
-    version='0.2.2',
+    version='0.3.0',
     description="Python library for ISO 639 standard",
     long_description=
     """
