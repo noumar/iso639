@@ -67,6 +67,7 @@ class Iso639(object):
     """
     This class is a close to drop-in replacement for pycountry.languages.
     But unlike pycountry.languages it also supports ISO 639-3.
+
     It implements the Singleton design pattern for performance reasons.
     """
     __instance = None
@@ -76,19 +77,35 @@ class Iso639(object):
             cls.__instance = super(cls, cls).__new__(cls)
         return cls.__instance
 
-    def __init__(self):
-        if hasattr(self, 'languages'):
-            return
-
+    @lazy_property
+    def languages(self):
         l, i = _fabtabular()
         i = dict((x[0], x) for x in i)
-        self.languages = [_Language(a, b, c, d, e, i[a][2]) for a, b, c, d, _, _, e, _ in l]
-        self.alpha3 = dict((x.alpha3, x) for x in self.languages if x.alpha3)
-        self.bibliographic = dict((x.bibliographic, x) for x in self.languages if x.bibliographic)
-        self.terminology = dict((x.terminology, x) for x in self.languages if x.terminology)
-        self.alpha2 = dict((x.alpha2, x) for x in self.languages if x.alpha2)
-        self.name = dict((x.name, x) for x in self.languages if x.name)
-        self.inverted = dict((x.inverted, x) for x in self.languages if x.inverted)
+        return [_Language(a, b, c, d, e, i[a][2]) for a, b, c, d, _, _, e, _ in l]
+
+    @lazy_property
+    def alpha3(self):
+        return dict((x.alpha3, x) for x in self.languages if x.alpha3)
+
+    @lazy_property
+    def bibliographic(self):
+        return dict((x.bibliographic, x) for x in self.languages if x.bibliographic)
+
+    @lazy_property
+    def terminology(self):
+        return dict((x.terminology, x) for x in self.languages if x.terminology)
+
+    @lazy_property
+    def alpha2(self):
+        return dict((x.alpha2, x) for x in self.languages if x.alpha2)
+
+    @lazy_property
+    def name(self):
+        return dict((x.name, x) for x in self.languages if x.name)
+
+    @lazy_property
+    def inverted(self):
+        return dict((x.inverted, x) for x in self.languages if x.inverted)
 
     def get(self, **kwargs):
         """
