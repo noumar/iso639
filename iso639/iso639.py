@@ -47,6 +47,22 @@ class _Language(object):
         self.inverted = inverted
 
 
+class lazy_property(object):
+    """
+    Implements a lazy property decorator, that overwrites itself/property with value
+    """
+    def __init__(self, f):
+        self.f = f
+        self.name = f.__name__
+
+    def __get__(self, instance, owner):
+        if instance is None:
+            return self
+        val = self.f(instance)
+        setattr(instance, self.name, val)
+        return val
+
+
 class Iso639(object):
     """
     This class is a close to drop-in replacement for pycountry.languages.
