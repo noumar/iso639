@@ -55,7 +55,7 @@ class lazy_property(object):
         self.f = f
         self.name = f.__name__
 
-    def __get__(self, instance, owner):
+    def __get__(self, instance, owner=None):
         if instance is None:
             return self
         val = self.f(instance)
@@ -69,13 +69,13 @@ class Iso639(object):
     But unlike pycountry.languages it also supports ISO 639-3.
 
     It implements the Singleton design pattern for performance reasons.
+    Is uses lazy properties for faster import time.
     """
-    __instance = None
 
     def __new__(cls):
-        if cls.__instance is None:
-            cls.__instance = super(cls, cls).__new__(cls)
-        return cls.__instance
+        if not hasattr(cls, '__instance'):
+            setattr(cls, '__instance', super(cls, cls).__new__(cls))
+        return getattr(cls, '__instance')
 
     @lazy_property
     def languages(self):
