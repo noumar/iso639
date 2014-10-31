@@ -77,6 +77,12 @@ class Iso639(object):
             setattr(cls, '__instance', super(cls, cls).__new__(cls))
         return getattr(cls, '__instance')
 
+    def __len__(self):
+        return len(self.languages)
+
+    def __iter__(self):
+        return iter(self.languages)
+
     @lazy_property
     def languages(self):
         l, i = _fabtabular()
