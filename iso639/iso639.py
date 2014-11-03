@@ -17,21 +17,21 @@ def _fabtabular():
     data = resource_filename(__package__, 'iso-639-3.tab')
     inverted = resource_filename(__package__, 'iso-639-3_Name_Index.tab')
 
-    if sys.version_info[0] == 2:
-        # from urllib2 import urlopen
-        # u = urlopen('http://www-01.sil.org/iso639%2D3/iso-639-3.tab')
-        u = open(data)
-        # i = urlopen('http://www-01.sil.org/iso639-3/iso-639-3_Name_Index.tab')
-        i = open(inverted)
-        return list(csv.reader(u, delimiter='\t'))[1:], list(csv.reader(i, delimiter='\t'))[1:]
-    else:
-        # from urllib.request import urlopen
-        # import io
-        # with io.StringIO(urlopen('http://www-01.sil.org/iso639%2D3/iso-639-3.tab').read().decode()) as u, \
-        #         io.StringIO(urlopen('http://www-01.sil.org/iso639-3/iso-639-3_Name_Index.tab').read().decode()) as i:
-        with open(data) as u:
-            with open(inverted) as i:
-                return list(csv.reader(u, delimiter='\t'))[1:], list(csv.reader(i, delimiter='\t'))[1:]
+    # if sys.version_info[0] == 2:
+    #     from urllib2 import urlopen
+    #     from contextlib import closing
+    #     data_fo = closing(urlopen('http://www-01.sil.org/iso639%2D3/iso-639-3.tab'))
+    #     inverted_fo = closing(urlopen('http://www-01.sil.org/iso639-3/iso-639-3_Name_Index.tab'))
+    # else:
+    #     from urllib.request import urlopen
+    #     import io
+    #     data_fo = io.StringIO(urlopen('http://www-01.sil.org/iso639%2D3/iso-639-3.tab').read().decode())
+    #     inverted_fo = io.StringIO(urlopen('http://www-01.sil.org/iso639-3/iso-639-3_Name_Index.tab').read().decode())
+    data_fo = open(data)
+    inverted_fo = open(inverted)
+    with data_fo as u:
+        with inverted_fo as i:
+            return list(csv.reader(u, delimiter='\t'))[1:], list(csv.reader(i, delimiter='\t'))[1:]
 
 
 class _Language(object):
