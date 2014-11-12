@@ -5,6 +5,10 @@ Copyright (c) 2014 Mikael Karlsson (CSC - IT Center for Science Ltd.).
 Licensed under AGPLv3.
 """
 
+# Fix for Python 3.0 - 3.2
+if not __package__:
+    __package__ = __name__.split('.')[0]
+
 
 def _fabtabular():
     """
