@@ -6,6 +6,7 @@ Licensed under AGPLv3.
 """
 
 import sys
+import collections
 if sys.version_info[0:2] == (2, 6):
     import unittest2 as unittest
 else:
@@ -46,6 +47,14 @@ class ClassFunctionality(unittest.TestCase):
     def test_inverted(self):
         self.assertEqual(languages.get(inverted='Arabic, Moroccan').name, 'Moroccan Arabic')
         self.assertEqual(languages.inverted['Arabic, Moroccan'].name, 'Moroccan Arabic')
+
+    def test_len(self):
+        self.assertIsInstance(len(languages), int)
+        self.assertGreater(len(languages), 1000)
+
+    def test_iter(self):
+        self.assertIsInstance(languages, collections.Iterable)
+        self.assertIsInstance(iter(languages), collections.Iterator)
 
     def test_exceptions(self):
         self.assertRaises(KeyError, languages.get, alpha2='En')

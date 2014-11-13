@@ -24,12 +24,12 @@ def _fabtabular():
     # if sys.version_info[0] == 2:
     #     from urllib2 import urlopen
     #     from contextlib import closing
-    #     data_fo = closing(urlopen('http://www-01.sil.org/iso639%2D3/iso-639-3.tab'))
+    #     data_fo = closing(urlopen('http://www-01.sil.org/iso639-3/iso-639-3.tab'))
     #     inverted_fo = closing(urlopen('http://www-01.sil.org/iso639-3/iso-639-3_Name_Index.tab'))
     # else:
     #     from urllib.request import urlopen
     #     import io
-    #     data_fo = io.StringIO(urlopen('http://www-01.sil.org/iso639%2D3/iso-639-3.tab').read().decode())
+    #     data_fo = io.StringIO(urlopen('http://www-01.sil.org/iso639-3/iso-639-3.tab').read().decode())
     #     inverted_fo = io.StringIO(urlopen('http://www-01.sil.org/iso639-3/iso-639-3_Name_Index.tab').read().decode())
     data_fo = open(data)
     inverted_fo = open(inverted)
