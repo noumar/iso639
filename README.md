@@ -34,3 +34,4 @@ pip install -e iso639
 ## Contains external data
 - [ISO 639-3 Code Set](http://www-01.sil.org/iso639-3/iso-639-3.tab), dated 2014-03-20
 - [ISO 639-3 Language Names Index](http://www-01.sil.org/iso639-3/iso-639-3_Name_Index.tab), dated 2014-03-20
+- [ISO 639-3 Macrolanguage Mappings](http://www-01.sil.org/iso639-3/iso-639-3-macrolanguages.tab), dated 2014-03-20

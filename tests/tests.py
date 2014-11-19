@@ -44,9 +44,16 @@ class ClassFunctionality(unittest.TestCase):
         self.assertEqual(languages.get(name='English').alpha3, 'eng')
         self.assertEqual(languages.name['English'].alpha3, 'eng')
 
+    def test_macro_name(self):
+        # TODO: self.assertEqual(languages.get(name='Standard Estonian').macro, languages.get(alpha3='est'))
+        self.assertEqual(languages.get(name='Standard Estonian').macro, 'est')
+
     def test_inverted(self):
         self.assertEqual(languages.get(inverted='Arabic, Moroccan').name, 'Moroccan Arabic')
         self.assertEqual(languages.inverted['Arabic, Moroccan'].name, 'Moroccan Arabic')
+
+    def test_macro_length(self):
+        self.assertEqual(len(languages.macro), 62)
 
     def test_len(self):
         self.assertIsInstance(len(languages), int)
