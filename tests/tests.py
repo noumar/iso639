@@ -40,6 +40,13 @@ class ClassFunctionality(unittest.TestCase):
         self.assertEqual(languages.get(alpha3='eng').name, 'English')
         self.assertEqual(languages.alpha3['eng'].name, 'English')
 
+    def test_retired_code(self):
+        # TODO: self.assertEqual(languages.get(alpha3='ron').retired, 'mol')
+        self.assertEqual(languages.get(retired='mol'), languages.get(alpha3='ron'))
+        self.assertEqual(languages.retired['mol'], languages.alpha3['ron'])
+        self.assertIsInstance(languages.get(retired='nlr'), str)
+        self.assertIsInstance(languages.retired['nlr'], str)
+
     def test_name(self):
         self.assertEqual(languages.get(name='English').alpha3, 'eng')
         self.assertEqual(languages.name['English'].alpha3, 'eng')
@@ -54,6 +61,9 @@ class ClassFunctionality(unittest.TestCase):
 
     def test_macro_length(self):
         self.assertEqual(len(languages.macro), 62)
+
+    def test_retired_length(self):
+        self.assertEqual(len(languages.retired), 243)
 
     def test_len(self):
         self.assertIsInstance(len(languages), int)
