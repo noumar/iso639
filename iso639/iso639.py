@@ -49,7 +49,7 @@ class _Language(object):
     """
     This class represents a language. It imitates pycountry's language class structure.
     """
-    def __init__(self, dash3, dash2b, dash2t, dash1, name, inverted, macro):
+    def __init__(self, dash3, dash2b, dash2t, dash1, name, inverted, macro, names):
         self.alpha3 = dash3
         self.bibliographic = dash2b
         self.terminology = dash2t
@@ -57,6 +57,7 @@ class _Language(object):
         self.name = name
         self.inverted = inverted
         self.macro = macro
+        self.names = names
 
 
 class lazy_property(object):
@@ -97,13 +98,20 @@ class Iso639(object):
 
     @lazy_property
     def languages(self):
-        l, i, m = _fabtabular()
-        i = dict((x[0], x) for x in i)
+        def gen():
+            for a, b, c, d, _, _, e, _ in l:
+                inv = alt[a].pop(e)
+                yield _Language(a, b, c, d, e,
+                                inv,
+                                m.get(a, [''])[0],
+                                alt[a].items())
+
+        l, i, m, co = _fabtabular()
+        alt = collections.defaultdict(dict)
+        for x in i:
+            alt[x[0]][x[1]] = x[2]
         m = dict((x[1], x) for x in m)
-        return [_Language(a, b, c, d, e,
-                          i.get(a, ['', '', ''])[2],
-                          m.get(a, [''])[0])
-                for a, b, c, d, _, _, e, _ in l]
+        return list(gen())
 
     @lazy_property
     def alpha3(self):
@@ -123,7 +131,14 @@ class Iso639(object):
 
     @lazy_property
     def name(self):
-        return dict((x.name, x) for x in self.languages if x.name)
+        def gen():
+            for x in self.languages:
+                if x.name:
+                    yield x.name, x
+                for n in x.names:
+                    yield n[0], x
+
+        return dict(gen())
 
     @lazy_property
     def inverted(self):

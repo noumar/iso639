@@ -51,6 +51,18 @@ class ClassFunctionality(unittest.TestCase):
         self.assertEqual(languages.get(name='English').alpha3, 'eng')
         self.assertEqual(languages.name['English'].alpha3, 'eng')
 
+    def test_alternative_name(self):
+        self.assertEqual(languages.get(name='Romanian').alpha3, 'ron')
+        self.assertEqual(languages.get(name='Moldavian').alpha3, 'ron')
+        self.assertEqual(languages.get(name='Moldovan').alpha3, 'ron')
+
+        self.assertEqual(languages.get(name='Dimili').alpha3, 'zza')
+        self.assertEqual(languages.get(name='Dimli (macrolanguage)').alpha3, 'zza')
+        self.assertEqual(languages.get(name='Kirdki').alpha3, 'zza')
+        self.assertEqual(languages.get(name='Kirmanjki (macrolanguage)').alpha3, 'zza')
+        self.assertEqual(languages.get(name='Zaza').alpha3, 'zza')
+        self.assertEqual(languages.get(name='Zazaki').alpha3, 'zza')
+
     def test_macro_name(self):
         # TODO: self.assertEqual(languages.get(name='Standard Estonian').macro, languages.get(alpha3='est'))
         self.assertEqual(languages.get(name='Standard Estonian').macro, 'est')
@@ -61,7 +73,7 @@ class ClassFunctionality(unittest.TestCase):
 
     def test_property_lengths(self):
         self.assertEqual(len(languages.languages), 7879)
-        self.assertEqual(len(languages.name), 7879)
+        self.assertEqual(len(languages.name), 8139)
         self.assertEqual(len(languages.alpha2), 184)
         self.assertEqual(len(languages.bibliographic), 418)
         self.assertEqual(len(languages.terminology), 418)
