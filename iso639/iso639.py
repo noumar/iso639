@@ -47,17 +47,28 @@ def _fabtabular():
 
 class _Language(object):
     """
-    This class represents a language. It imitates pycountry's language class structure.
+    This class represents a language. It provides pycountry language class compatibility.
     """
-    def __init__(self, dash3, dash2b, dash2t, dash1, name, inverted, macro, names):
-        self.alpha3 = dash3
-        self.bibliographic = dash2b
-        self.terminology = dash2t
-        self.alpha2 = dash1
+
+    def __init__(self, part3, part2b, part2t, part1, name, inverted, macro, names):
+        self.part3 = part3
+        self.part2b = part2b
+        self.part2t = part2t
+        self.part1 = part1
         self.name = name
         self.inverted = inverted
         self.macro = macro
         self.names = names
+
+    def __getattr__(self, item):
+        compat = {
+            'alpha2': self.part1,
+            'bibliographic': self.part2b,
+            'terminology': self.part2t,
+        }
+        if item not in compat:
+            raise AttributeError("'{o}' object has no attribute '{a}'".format(o=type(self).__name__, a=item))
+        return compat[item]
 
 
 class lazy_property(object):
@@ -96,6 +107,16 @@ class Iso639(object):
     def __iter__(self):
         return iter(self.languages)
 
+    def __getattr__(self, item):
+        compat = {
+            'alpha2': self.part1,
+            'bibliographic': self.part2b,
+            'terminology': self.part2t,
+        }
+        if item not in compat:
+            raise AttributeError("'{o}' object has no attribute '{a}'".format(o=type(self).__name__, a=item))
+        return compat[item]
+
     @lazy_property
     def languages(self):
         def gen():
@@ -106,7 +127,7 @@ class Iso639(object):
                                 m.get(a, [''])[0],
                                 alt[a].items())
 
-        l, i, m, co = _fabtabular()
+        l, i, m = _fabtabular()
         alt = collections.defaultdict(dict)
         for x in i:
             alt[x[0]][x[1]] = x[2]
@@ -114,20 +135,20 @@ class Iso639(object):
         return list(gen())
 
     @lazy_property
-    def alpha3(self):
-        return dict((x.alpha3, x) for x in self.languages if x.alpha3)
+    def part3(self):
+        return dict((x.part3, x) for x in self.languages if x.part3)
 
     @lazy_property
-    def bibliographic(self):
-        return dict((x.bibliographic, x) for x in self.languages if x.bibliographic)
+    def part2b(self):
+        return dict((x.part2b, x) for x in self.languages if x.part2b)
 
     @lazy_property
-    def terminology(self):
-        return dict((x.terminology, x) for x in self.languages if x.terminology)
+    def part2t(self):
+        return dict((x.part2t, x) for x in self.languages if x.part2t)
 
     @lazy_property
-    def alpha2(self):
-        return dict((x.alpha2, x) for x in self.languages if x.alpha2)
+    def part1(self):
+        return dict((x.part1, x) for x in self.languages if x.part1)
 
     @lazy_property
     def name(self):
@@ -160,7 +181,7 @@ class Iso639(object):
                 rc = [r[0] for r in rtd]
                 for i, _, _, m, s, _ in rtd:
                     if m and m not in rc:
-                        yield i, self.get(alpha3=m)
+                        yield i, self.get(part3=m)
                     else:
                         yield i, s
 

@@ -22,46 +22,46 @@ class ClassFunctionality(unittest.TestCase):
     """
     def test_singleton(self):
         self.assertIs(Iso639(), Iso639())
-        self.assertIs(Iso639().alpha2['en'], Iso639().alpha2['en'])
+        self.assertIs(Iso639().part1['en'], Iso639().part1['en'])
 
-    def test_2_char_code(self):
-        self.assertEqual(languages.get(alpha2='en').name, 'English')
-        self.assertEqual(languages.alpha2['en'].name, 'English')
+    def test_part1(self):
+        self.assertEqual(languages.get(part1='en').name, 'English')
+        self.assertEqual(languages.part1['en'].name, 'English')
 
-    def test_bibliographic(self):
-        self.assertEqual(languages.get(bibliographic='dut').name, 'Dutch')
-        self.assertEqual(languages.bibliographic['dut'].name, 'Dutch')
+    def test_part2b(self):
+        self.assertEqual(languages.get(part2b='dut').name, 'Dutch')
+        self.assertEqual(languages.part2b['dut'].name, 'Dutch')
 
-    def test_terminology(self):
-        self.assertEqual(languages.get(terminology='nld').name, 'Dutch')
-        self.assertEqual(languages.terminology['nld'].name, 'Dutch')
+    def test_part2t(self):
+        self.assertEqual(languages.get(part2t='nld').name, 'Dutch')
+        self.assertEqual(languages.part2t['nld'].name, 'Dutch')
 
-    def test_3_char_code(self):
-        self.assertEqual(languages.get(alpha3='eng').name, 'English')
-        self.assertEqual(languages.alpha3['eng'].name, 'English')
+    def test_part3(self):
+        self.assertEqual(languages.get(part3='eng').name, 'English')
+        self.assertEqual(languages.part3['eng'].name, 'English')
 
     def test_retired_code(self):
         # TODO: self.assertEqual(languages.get(alpha3='ron').retired, 'mol')
-        self.assertEqual(languages.get(retired='mol'), languages.get(alpha3='ron'))
-        self.assertEqual(languages.retired['mol'], languages.alpha3['ron'])
+        self.assertEqual(languages.get(retired='mol'), languages.get(part3='ron'))
+        self.assertEqual(languages.retired['mol'], languages.part3['ron'])
         self.assertIsInstance(languages.get(retired='nlr'), str)
         self.assertIsInstance(languages.retired['nlr'], str)
 
     def test_name(self):
-        self.assertEqual(languages.get(name='English').alpha3, 'eng')
-        self.assertEqual(languages.name['English'].alpha3, 'eng')
+        self.assertEqual(languages.get(name='English').part3, 'eng')
+        self.assertEqual(languages.name['English'].part3, 'eng')
 
     def test_alternative_name(self):
-        self.assertEqual(languages.get(name='Romanian').alpha3, 'ron')
-        self.assertEqual(languages.get(name='Moldavian').alpha3, 'ron')
-        self.assertEqual(languages.get(name='Moldovan').alpha3, 'ron')
+        self.assertEqual(languages.get(name='Romanian').part3, 'ron')
+        self.assertEqual(languages.get(name='Moldavian').part3, 'ron')
+        self.assertEqual(languages.get(name='Moldovan').part3, 'ron')
 
-        self.assertEqual(languages.get(name='Dimili').alpha3, 'zza')
-        self.assertEqual(languages.get(name='Dimli (macrolanguage)').alpha3, 'zza')
-        self.assertEqual(languages.get(name='Kirdki').alpha3, 'zza')
-        self.assertEqual(languages.get(name='Kirmanjki (macrolanguage)').alpha3, 'zza')
-        self.assertEqual(languages.get(name='Zaza').alpha3, 'zza')
-        self.assertEqual(languages.get(name='Zazaki').alpha3, 'zza')
+        self.assertEqual(languages.get(name='Dimili').part3, 'zza')
+        self.assertEqual(languages.get(name='Dimli (macrolanguage)').part3, 'zza')
+        self.assertEqual(languages.get(name='Kirdki').part3, 'zza')
+        self.assertEqual(languages.get(name='Kirmanjki (macrolanguage)').part3, 'zza')
+        self.assertEqual(languages.get(name='Zaza').part3, 'zza')
+        self.assertEqual(languages.get(name='Zazaki').part3, 'zza')
 
     def test_macro_name(self):
         # TODO: self.assertEqual(languages.get(name='Standard Estonian').macro, languages.get(alpha3='est'))
@@ -74,10 +74,10 @@ class ClassFunctionality(unittest.TestCase):
     def test_property_lengths(self):
         self.assertEqual(len(languages.languages), 7879)
         self.assertEqual(len(languages.name), 8139)
-        self.assertEqual(len(languages.alpha2), 184)
-        self.assertEqual(len(languages.bibliographic), 418)
-        self.assertEqual(len(languages.terminology), 418)
-        self.assertEqual(len(languages.alpha3), 7879)
+        self.assertEqual(len(languages.part1), 184)
+        self.assertEqual(len(languages.part2b), 418)
+        self.assertEqual(len(languages.part2t), 418)
+        self.assertEqual(len(languages.part3), 7879)
         self.assertEqual(len(languages.inverted), 7879)
         self.assertEqual(len(languages.macro), 62)
         self.assertEqual(len(languages.retired), 243)
@@ -91,10 +91,10 @@ class ClassFunctionality(unittest.TestCase):
         self.assertIsInstance(iter(languages), collections.Iterator)
 
     def test_exceptions(self):
-        self.assertRaises(KeyError, languages.get, alpha2='En')
-        self.assertRaises(KeyError, languages.get, name='Moroccan')
-        self.assertRaises(AttributeError, languages.get, alpha1='en')
-        self.assertRaises(AttributeError, languages.get, alpha2='en', name='English')
+        self.assertRaises(KeyError, languages.get, part1='En')  # Wrong value
+        self.assertRaises(KeyError, languages.get, name='Moroccan')  # Wrong value
+        self.assertRaises(AttributeError, languages.get, alpha1='en')  # Wrong keyword
+        self.assertRaises(AttributeError, languages.get, part1='en', name='English')  # Too many keywords
 
 
 class LogicFunctionality(unittest.TestCase):
@@ -138,16 +138,16 @@ class LogicFunctionality(unittest.TestCase):
         self.assertIs(map_language('EN_US'), self.english)
         self.assertIs(map_language('en_us'), self.english)
 
-    def test_logic_dash3(self):
+    def test_logic_part3(self):
         self.assertIs(map_language('ary'), self.moroccan)
-        self.assertIs(languages.alpha3['ary'], self.moroccan)
-        self.assertIs(languages.get(alpha3='ary'), self.moroccan)
+        self.assertIs(languages.part3['ary'], self.moroccan)
+        self.assertIs(languages.get(part3='ary'), self.moroccan)
         self.assertIs(map_language('Moroccan Arabic'), self.moroccan)
         self.assertIs(map_language('Tzeltal'), self.tzeltal)
         self.assertIs(map_language('Tzeltal, Tenejapa'), self.tzeltal)
         self.assertIs(map_language('tzh'), self.tzeltal)
 
-    def test_logic_dash2(self):
+    def test_logic_part2(self):
         self.assertEqual(map_language('Moroccan Arabic', False).name, 'Arabic')
 
 if __name__ == '__main__':

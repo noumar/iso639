@@ -22,7 +22,7 @@ def map_language(language, dash3=True):
         except KeyError: pass
     elif len(language) == 3:
         if dash3:
-            try: return languages.get(alpha3=language.lower())
+            try: return languages.get(part3=language.lower())
             except KeyError: pass
         try: return languages.get(terminology=language.lower())
         except KeyError: pass
