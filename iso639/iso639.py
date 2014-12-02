@@ -25,6 +25,7 @@ def _fabtabular():
     macro = resource_filename(__package__, 'iso-639-3-macrolanguages.tab')
     part5 = resource_filename(__package__, 'iso639-5.tsv')
     part2 = resource_filename(__package__, 'iso639-2.tsv')
+    part1 = resource_filename(__package__, 'iso639-1.tsv')
 
     # if sys.version_info[0] == 2:
     #     from urllib2 import urlopen
@@ -41,16 +42,19 @@ def _fabtabular():
     macro_fo = open(macro)
     part5_fo = open(part5)
     part2_fo = open(part2)
+    part1_fo = open(part1)
     with data_fo as u:
         with inverted_fo as i:
             with macro_fo as m:
                 with part5_fo as p5:
                     with part2_fo as p2:
-                        return (list(csv.reader(u, delimiter='\t'))[1:],
-                                list(csv.reader(i, delimiter='\t'))[1:],
-                                list(csv.reader(m, delimiter='\t'))[1:],
-                                list(csv.reader(p5, delimiter='\t'))[1:],
-                                list(csv.reader(p2, delimiter='\t'))[1:])
+                        with part1_fo as p1:
+                            return (list(csv.reader(u, delimiter='\t'))[1:],
+                                    list(csv.reader(i, delimiter='\t'))[1:],
+                                    list(csv.reader(m, delimiter='\t'))[1:],
+                                    list(csv.reader(p5, delimiter='\t'))[1:],
+                                    list(csv.reader(p2, delimiter='\t'))[1:],
+                                    list(csv.reader(p1, delimiter='\t'))[1:])
 
 
 class _Language(object):
@@ -132,8 +136,9 @@ class Iso639(object):
             # All of part3 and matching part2
             for a, b, c, d, _, _, e, _ in l:
                 inv = alt[a].pop(e)
-                yield _Language(a, b, c, d, e,
-                                inv,
+                yield _Language(a, b, c,
+                                d if d in p1c else '',  # Fixes 'sh'
+                                e, inv,
                                 m.get(a, [''])[0],
                                 alt[a].items(),
                                 '')
@@ -145,7 +150,7 @@ class Iso639(object):
                 yield _Language('',
                                 a if a in p2 else '',
                                 a if a in p2 else '',
-                                '',
+                                p1n.get(b, ['', ''])[1],
                                 b, '', '', '', a)
                 p2.pop(a, None)
 
@@ -153,14 +158,18 @@ class Iso639(object):
             p2.pop('qaa-qtz', None)  # Is not a real code, but a range
             for _, a, b, _ in p2.values():
                 n = [x.strip() for x in b.split('|')]
-                yield _Language('', a, a, '', n[0], '', '', zip(n[1:], n[1:]), '')
+                yield _Language('', a, a,
+                                p1n.get(b, ['', ''])[1],
+                                n[0], '', '', zip(n[1:], n[1:]), '')
 
-        l, i, m, p5, p2 = _fabtabular()
+        l, i, m, p5, p2, p1 = _fabtabular()
         alt = collections.defaultdict(dict)
         for x in i:
             alt[x[0]][x[1]] = x[2]
         m = dict((x[1], x) for x in m)
         p2 = dict((x[1], x) for x in p2)
+        p1c = dict((x[1], x) for x in p1)
+        p1n = dict((x[2].split('|')[0].strip(), x) for x in p1)
         return list(generate())
 
     @lazy_property

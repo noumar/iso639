@@ -36,5 +36,6 @@ pip install -e iso639
 - [ISO 639-3 Language Names Index](http://www-01.sil.org/iso639-3/iso-639-3_Name_Index.tab), dated 2014-03-20
 - [ISO 639-3 Macrolanguage Mappings](http://www-01.sil.org/iso639-3/iso-639-3-macrolanguages.tab), dated 2014-03-20
 - [ISO 639-3 Retired Code Element Mappings](http://www-01.sil.org/iso639-3/iso-639-3_Retirements.tab), dated 2014-03-20
+- [ISO 639-1](http://id.loc.gov/vocabulary/iso639-1.tsv), on 2014-11-28
 - [ISO 639-2](http://id.loc.gov/vocabulary/iso639-2.tsv), on 2014-11-28
 - [ISO 639-5](http://id.loc.gov/vocabulary/iso639-5.tsv), dated 2011-05-12
