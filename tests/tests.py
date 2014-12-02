@@ -14,6 +14,7 @@ else:
 
 from iso639 import Iso639, languages
 from examples.logic import map_language
+from pycountry import languages as pclanguages
 
 
 class ClassFunctionality(unittest.TestCase):
@@ -102,6 +103,34 @@ class ClassFunctionality(unittest.TestCase):
         self.assertRaises(KeyError, languages.get, name='Moroccan')  # Wrong value
         self.assertRaises(AttributeError, languages.get, alpha1='en')  # Wrong keyword
         self.assertRaises(AttributeError, languages.get, part1='en', name='English')  # Too many keywords
+
+
+class CompatibilityChecks(unittest.TestCase):
+    """
+    Test cases for library class compatibility against pycountry.languages
+    """
+    @classmethod
+    def setUpClass(cls):
+        cls.pcterm = set(pclanguages.indices['terminology'].keys())
+        cls.term = set(languages.terminology.keys())
+        cls.pcbib = set(pclanguages.indices['bibliographic'].keys())
+        cls.bib = set(languages.bibliographic.keys())
+        cls.pcalpha2 = set(pclanguages.indices['alpha2'].keys())
+        cls.alpha2 = set(languages.alpha2.keys())
+
+        # Retired or invalid codes
+        cls.pcterm -= set(['mol', 'qaa-qtz'])
+        cls.pcbib -= set(['mol', 'qaa-qtz'])
+        cls.pcalpha2 -= set(['mo'])
+
+    def test_compare_bibliographic(self):
+        self.assertEqual(self.bib, self.pcbib)
+
+    def test_compare_terminology(self):
+        self.assertEqual(self.term, self.pcterm)
+
+    def test_compare_alpha2(self):
+        self.assertEqual(self.alpha2, self.pcalpha2)
 
 
 class LogicFunctionality(unittest.TestCase):
