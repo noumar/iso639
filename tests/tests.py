@@ -68,6 +68,8 @@ class ClassFunctionality(unittest.TestCase):
         self.assertEqual(languages.get(name='Standard Estonian').macro, 'est')
 
     def test_collective_name(self):
+        self.assertEqual(languages.get(name='Bihari languages').part2b, 'bih')
+        self.assertEqual(languages.get(name='Sami languages').part2b, 'smi')
         self.assertEqual(languages.get(name='Bihari languages').part5, 'bih')
         self.assertEqual(languages.get(name='Sami languages').part5, 'smi')
 
@@ -76,11 +78,11 @@ class ClassFunctionality(unittest.TestCase):
         self.assertEqual(languages.inverted['Arabic, Moroccan'].name, 'Moroccan Arabic')
 
     def test_property_lengths(self):
-        self.assertEqual(len(languages.languages), 7994)
-        self.assertEqual(len(languages.name), 8254)
+        self.assertEqual(len(languages.languages), 7995)
+        self.assertEqual(len(languages.name), 8256)
         self.assertEqual(len(languages.part1), 184)
-        self.assertEqual(len(languages.part2b), 534)
-        self.assertEqual(len(languages.part2t), 534)
+        self.assertEqual(len(languages.part2b), 485)
+        self.assertEqual(len(languages.part2t), 485)
         self.assertEqual(len(languages.part3), 7879)
         self.assertEqual(len(languages.part5), 115)
         self.assertEqual(len(languages.inverted), 7879)
@@ -89,7 +91,7 @@ class ClassFunctionality(unittest.TestCase):
 
     def test_len(self):
         self.assertIsInstance(len(languages), int)
-        self.assertEqual(len(languages), 7994)
+        self.assertEqual(len(languages), 7995)
 
     def test_iter(self):
         self.assertIsInstance(languages, collections.Iterable)
