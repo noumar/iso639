@@ -23,6 +23,7 @@ def _fabtabular():
     data = resource_filename(__package__, 'iso-639-3.tab')
     inverted = resource_filename(__package__, 'iso-639-3_Name_Index.tab')
     macro = resource_filename(__package__, 'iso-639-3-macrolanguages.tab')
+    part5 = resource_filename(__package__, 'iso639-5.tsv')
 
     # if sys.version_info[0] == 2:
     #     from urllib2 import urlopen
@@ -37,12 +38,15 @@ def _fabtabular():
     data_fo = open(data)
     inverted_fo = open(inverted)
     macro_fo = open(macro)
+    part5_fo = open(part5)
     with data_fo as u:
         with inverted_fo as i:
             with macro_fo as m:
-                return (list(csv.reader(u, delimiter='\t'))[1:],
-                        list(csv.reader(i, delimiter='\t'))[1:],
-                        list(csv.reader(m, delimiter='\t'))[1:])
+                with part5_fo as p5:
+                    return (list(csv.reader(u, delimiter='\t'))[1:],
+                            list(csv.reader(i, delimiter='\t'))[1:],
+                            list(csv.reader(m, delimiter='\t'))[1:],
+                            list(csv.reader(p5, delimiter='\t'))[1:])
 
 
 class _Language(object):
@@ -50,7 +54,7 @@ class _Language(object):
     This class represents a language. It provides pycountry language class compatibility.
     """
 
-    def __init__(self, part3, part2b, part2t, part1, name, inverted, macro, names):
+    def __init__(self, part3, part2b, part2t, part1, name, inverted, macro, names, part5):
         self.part3 = part3
         self.part2b = part2b
         self.part2t = part2t
@@ -59,6 +63,7 @@ class _Language(object):
         self.inverted = inverted
         self.macro = macro
         self.names = names
+        self.part5 = part5
 
     def __getattr__(self, item):
         compat = {
@@ -119,20 +124,24 @@ class Iso639(object):
 
     @lazy_property
     def languages(self):
-        def gen():
+        def generate():
             for a, b, c, d, _, _, e, _ in l:
                 inv = alt[a].pop(e)
                 yield _Language(a, b, c, d, e,
                                 inv,
                                 m.get(a, [''])[0],
-                                alt[a].items())
+                                alt[a].items(),
+                                '')
 
-        l, i, m = _fabtabular()
+            for _, a, b, _ in p5:
+                yield _Language('', a, a, '', b, '', '', '', a)
+
+        l, i, m, p5 = _fabtabular()
         alt = collections.defaultdict(dict)
         for x in i:
             alt[x[0]][x[1]] = x[2]
         m = dict((x[1], x) for x in m)
-        return list(gen())
+        return list(generate())
 
     @lazy_property
     def part3(self):
@@ -149,6 +158,10 @@ class Iso639(object):
     @lazy_property
     def part1(self):
         return dict((x.part1, x) for x in self.languages if x.part1)
+
+    @lazy_property
+    def part5(self):
+        return dict((x.part5, x) for x in self.languages if x.part5)
 
     @lazy_property
     def name(self):

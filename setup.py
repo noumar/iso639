@@ -15,13 +15,13 @@ setup(
     """
     """,
     classifiers=[],  # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
-    keywords='pycountry language iso-639 iso 639 639-1 639-2 639-3',
+    keywords='pycountry language iso-639 iso 639 639-1 639-2 639-3 639-5',
     author='Mikael Karlsson',
     author_email='i8myshoes@gmail.com',
     url='https://github.com/noumar/iso639',
     license='AGPLv3',
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
-    package_data={'': ['*.tab']},
+    package_data={'': ['*.tab', '*.tsv']},
     include_package_data=True,
     zip_safe=False,
     install_requires=[],
