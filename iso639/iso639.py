@@ -5,9 +5,6 @@ Copyright (c) 2014 Mikael Karlsson (CSC - IT Center for Science Ltd.).
 Licensed under AGPLv3.
 """
 
-import collections
-import csv
-from pkg_resources import resource_filename
 
 # Fix for Python 3.0 - 3.2
 if not __package__:
@@ -18,7 +15,9 @@ def _fabtabular():
     """
     This function retrieves the ISO 639 and inverted names datasets as tsv files and returns them as two lists.
     """
+    import csv
     import sys
+    from pkg_resources import resource_filename
 
     data = resource_filename(__package__, 'iso-639-3.tab')
     inverted = resource_filename(__package__, 'iso-639-3_Name_Index.tab')
@@ -162,6 +161,8 @@ class Iso639(object):
                                 p1n.get(b, ['', ''])[1],
                                 n[0], '', '', zip(n[1:], n[1:]), '')
 
+        import collections
+
         l, i, m, p5, p2, p1 = _fabtabular()
         alt = collections.defaultdict(dict)
         for x in i:
@@ -209,6 +210,8 @@ class Iso639(object):
 
     @lazy_property
     def macro(self):
+        import collections
+
         m = collections.defaultdict(list)
         for x in self.languages:
             if x.macro:
@@ -218,6 +221,9 @@ class Iso639(object):
     @lazy_property
     def retired(self):
         def gen():
+            import csv
+            from pkg_resources import resource_filename
+
             with open(resource_filename(__package__, 'iso-639-3_Retirements.tab')) as rf:
                 rtd = list(csv.reader(rf, delimiter='\t'))[1:]
                 rc = [r[0] for r in rtd]
