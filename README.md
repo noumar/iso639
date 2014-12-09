@@ -4,6 +4,28 @@ ISO 639 library for Python.
 ## License
 GNU Affero General Public License version 3 (AGPLv3)
 
+## Supports
+- ISO 639-1
+- ISO 639-2
+- ISO 639-3
+- ISO 639-5
+
+Doesn't support ISO 639-4 yet.
+
+## Breaking changes
+- 0.4.0: ```alpha3``` has been renamed to ```part3```. ```languages.alpha3``` might be used as an aggregation of all 'three letter codes' in the future.
+
+## Compatibility
+This library is aimed to be fully compatible with ```pycountry.languages```.
+
+It provides the following attribute abstractions:
+
+- ```terminology``` -> ```part2t```
+- ```bibliographic``` -> ```part2b```
+- ```alpha2``` -> ```part1```
+
+If you have no intentions on using ```pycountry.languages``` or want/need to keep compatibility then please use the ```partX``` attributes for brevity and clarity.
+
 ## Installation
 The package is pip installable from this repository. Future plans are to submit the package to PyPI.
 
