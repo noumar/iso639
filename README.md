@@ -36,7 +36,7 @@ pip install git+https://github.com/noumar/iso639.git
 
 ### Specific version
 ```
-pip install git+https://github.com/noumar/iso639.git@0.3.1
+pip install git+https://github.com/noumar/iso639.git@0.4.0
 ```
 
 ### Development branch
