@@ -1,7 +1,7 @@
 """
 Python library for ISO 639 standard
 
-Copyright (c) 2014 Mikael Karlsson (CSC - IT Center for Science Ltd.).
+Copyright (c) 2014-2015 Mikael Karlsson (CSC - IT Center for Science Ltd.).
 Licensed under AGPLv3.
 """
 
@@ -47,6 +47,8 @@ class ClassFunctionality(unittest.TestCase):
         self.assertEqual(languages.retired['mol'], languages.part3['ron'])
         self.assertIsInstance(languages.get(retired='nlr'), str)
         self.assertIsInstance(languages.retired['nlr'], str)
+        self.assertEqual(languages.get(retired='sh'), languages.get(part3='hbs'))
+        self.assertEqual(languages.retired['sh'], languages.part3['hbs'])
 
     def test_name(self):
         self.assertEqual(languages.get(name='English').part3, 'eng')
@@ -88,7 +90,7 @@ class ClassFunctionality(unittest.TestCase):
         self.assertEqual(len(languages.part5), 115)
         self.assertEqual(len(languages.inverted), 7879)
         self.assertEqual(len(languages.macro), 62)
-        self.assertEqual(len(languages.retired), 243)
+        self.assertEqual(len(languages.retired), 244)
 
     def test_len(self):
         self.assertIsInstance(len(languages), int)
@@ -185,6 +187,7 @@ class LogicFunctionality(unittest.TestCase):
 
     def test_logic_part2(self):
         self.assertEqual(map_language('Moroccan Arabic', False).name, 'Arabic')
+
 
 if __name__ == '__main__':
     unittest.main()

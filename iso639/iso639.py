@@ -1,7 +1,7 @@
 """
 Python library for ISO 639 standard
 
-Copyright (c) 2014 Mikael Karlsson (CSC - IT Center for Science Ltd.).
+Copyright (c) 2014-2015 Mikael Karlsson (CSC - IT Center for Science Ltd.).
 Licensed under AGPLv3.
 """
 
@@ -232,6 +232,8 @@ class Iso639(object):
                         yield i, self.get(part3=m)
                     else:
                         yield i, s
+
+            yield 'sh', self.get(part3='hbs')  # Add 'sh' as deprecated
 
         return dict(gen())
 
