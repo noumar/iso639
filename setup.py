@@ -11,9 +11,7 @@ setup(
     name='iso639',
     version='0.4.1',
     description="Python library for ISO 639 standard",
-    long_description=
-    """
-    """,
+    long_description=open('README.rst').read(),
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
