@@ -5,12 +5,16 @@ python:
   - "3.2"
   - "3.3"
   - "3.4"
+  - "nightly"
   - "pypy"
   - "pypy3"
+
+env:
+  - PYCOUNTRY_VERSION=1.11
 
 install:
   - "pip install ."
   - "pip install unittest2"
-  - "pip install pycountry"
+  - "pip install pycountry==$PYCOUNTRY_VERSION"
 
 script: nosetests
