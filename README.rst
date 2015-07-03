@@ -40,45 +40,6 @@ It provides the following attribute abstractions:
 
 If you have no intentions on using ``pycountry.languages`` or want/need to keep compatibility then please use the ``partX`` attributes for brevity and clarity.
 
-Installation
-------------
-
-The package is pip installable from this repository. Future plans are to submit the package to PyPI.
-
-Latest stable
-~~~~~~~~~~~~~
-
-.. code-block:: bash
-
-    pip install git+https://github.com/noumar/iso639.git
-
-Specific version
-~~~~~~~~~~~~~~~~
-
-.. code-block:: bash
-
-    pip install git+https://github.com/noumar/iso639.git@0.4.0
-
-Development branch
-~~~~~~~~~~~~~~~~~~
-
-.. code-block:: bash
-
-    pip install git+https://github.com/noumar/iso639.git@development
-
-Upgrade
--------
-
-``pip list -o`` will not find updates. Use installation commands given above with ``-U`` flag.
-
-Development
------------
-
-.. code-block:: bash
-
-    git clone -b development https://github.com/noumar/iso639.git
-    pip install -e iso639
-
 Contains external data
 ----------------------
 
