@@ -8,5 +8,5 @@ Licensed under AGPLv3.
 from __future__ import absolute_import
 from iso639.iso639 import Iso639
 
-__version__ = '0.4.1'
+__version__ = '0.4.2'
 languages = Iso639()
