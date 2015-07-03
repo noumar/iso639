@@ -6,12 +6,18 @@ Licensed under AGPLv3.
 """
 
 from setuptools import setup, find_packages
+from iso639 import __version__
+
+with open('README.rst') as f:
+    for _ in range(5):
+        f.readline()
+    long_description = f.read()
 
 setup(
-    name='iso639',
-    version='0.4.1',
+    name='iso-639',
+    version=__version__,
     description="Python library for ISO 639 standard",
-    long_description=open('README.rst').read(),
+    long_description=long_description,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
@@ -30,14 +36,13 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Text Processing :: Linguistic',
     ],
-    keywords='pycountry language iso-639 iso 639 639-1 639-2 639-3 639-5',
+    keywords='pycountry languages iso-639 iso 639 639-1 639-2 639-3 639-5',
     author='Mikael Karlsson',
     author_email='i8myshoes@gmail.com',
     url='https://github.com/noumar/iso639',
     license='AGPLv3',
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     package_data={'': ['*.tab', '*.tsv']},
-    include_package_data=True,
     zip_safe=False,
     install_requires=[],
     entry_points=
