@@ -87,6 +87,7 @@ class lazy_property(object):
     """
     Implements a lazy property decorator, that overwrites itself/property with value
     """
+
     def __init__(self, f):
         self.f = f
         self.name = f.__name__
@@ -139,7 +140,7 @@ class Iso639(object):
                                 d if d in p1c else '',  # Fixes 'sh'
                                 e, inv,
                                 m.get(a, [''])[0],
-                                alt[a].items(),
+                                list(alt[a].items()),
                                 '')
                 p2.pop(b, None)
                 p2.pop(c, None)
