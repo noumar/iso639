@@ -39,6 +39,69 @@ It provides the following attribute abstractions:
 
 If you have no intentions on using ``pycountry.languages`` or want/need to keep compatibility then please use the ``partX`` attributes for brevity and clarity.
 
+Usage
+-----
+
+As taken from ``pycountry.languages`` v1.11 documentation, with modifications and further additions.
+
+.. code-block:: python
+
+    >>> from iso639 import languages
+    >>> from pprint import pprint
+
+    >>> len(languages)
+    7981
+
+    >>> type(list(languages)[0])
+    <class 'iso639.iso639._Language'>
+
+    # Compatibility
+    >>> aragonese = languages.get(alpha2='an')
+    >>> aragonese.alpha2
+    'an'
+    >>> aragonese.bibliographic
+    'arg'
+    >>> aragonese.terminology
+    'arg'
+    >>> aragonese.name
+    'Aragonese'
+
+    >>> bengali = languages.get(alpha2='bn')
+    >>> bengali.name
+    'Bengali'
+
+    # We *do not* deviate from the standard
+    >>> try:
+    ...     bengali.common_name
+    ... except AttributeError as e:
+    ...     print(e)
+    '_Language' object has no attribute 'common_name'
+
+    # New API
+    >>> aragonese = languages.get(part1='an')
+    >>> aragonese.part1
+    'an'
+    >>> aragonese.part2b
+    'arg'
+    >>> aragonese.part2t
+    'arg'
+    >>> aragonese.part3
+    'arg'
+    >>> aragonese.name
+    'Aragonese'
+    >>> aragonese.inverted
+    'Aragonese'
+    >>> pprint(vars(aragonese))
+    {'inverted': 'Aragonese',
+     'macro': '',
+     'name': 'Aragonese',
+     'names': [],
+     'part1': 'an',
+     'part2b': 'arg',
+     'part2t': 'arg',
+     'part3': 'arg',
+     'part5': ''}
+
 Contains external data
 ----------------------
 

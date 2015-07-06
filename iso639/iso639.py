@@ -13,7 +13,7 @@ if not __package__:
 
 def _fabtabular():
     """
-    This function retrieves the ISO 639 and inverted names datasets as tsv files and returns them as two lists.
+    This function retrieves the ISO 639 and inverted names datasets as tsv files and returns them as lists.
     """
     import csv
     import sys

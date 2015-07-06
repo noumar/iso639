@@ -13,8 +13,8 @@ env:
   - PYCOUNTRY_VERSION=1.11
 
 install:
-  - "pip install ."
+  - "pip install -e ."
   - "pip install unittest2"
   - "pip install pycountry==$PYCOUNTRY_VERSION"
 
-script: nosetests
+script: py.test -v tests/*.py README.rst
