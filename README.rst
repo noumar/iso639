@@ -44,10 +44,10 @@ Contains external data
 
 - `ISO 639-1`_, on 2014-11-28
 - `ISO 639-2`_, on 2014-11-28
-- `ISO 639-3 Code Set`_, dated 2015-01-12
-- `ISO 639-3 Language Names Index`_, dated 2015-01-12
-- `ISO 639-3 Macrolanguage Mappings`_, dated 2015-01-12
-- `ISO 639-3 Retired Code Element Mappings`_, dated 2015-01-12
+- `ISO 639-3 Code Set`_, dated 2015-05-05
+- `ISO 639-3 Language Names Index`_, dated 2015-05-05
+- `ISO 639-3 Macrolanguage Mappings`_, dated 2015-05-05
+- `ISO 639-3 Retired Code Element Mappings`_, dated 2015-05-05
 - `ISO 639-5`_, dated 2011-05-12
 
 .. _ISO 639-1: http://id.loc.gov/vocabulary/iso639-1.tsv

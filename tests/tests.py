@@ -7,6 +7,7 @@ Licensed under AGPLv3.
 
 import sys
 import collections
+
 if sys.version_info[0:2] == (2, 6):
     import unittest2 as unittest
 else:
@@ -21,6 +22,7 @@ class ClassFunctionality(unittest.TestCase):
     """
     Test cases for library class implementation
     """
+
     def test_singleton(self):
         self.assertIs(Iso639(), Iso639())
         self.assertIs(Iso639().part1['en'], Iso639().part1['en'])
@@ -81,20 +83,20 @@ class ClassFunctionality(unittest.TestCase):
         self.assertEqual(languages.inverted['Arabic, Moroccan'].name, 'Moroccan Arabic')
 
     def test_property_lengths(self):
-        self.assertEqual(len(languages.languages), 7979)
-        self.assertEqual(len(languages.name), 8254)
+        self.assertEqual(len(languages.languages), 7981)
+        self.assertEqual(len(languages.name), 8257)
         self.assertEqual(len(languages.part1), 184)
         self.assertEqual(len(languages.part2b), 485)
         self.assertEqual(len(languages.part2t), 485)
-        self.assertEqual(len(languages.part3), 7863)
+        self.assertEqual(len(languages.part3), 7865)
         self.assertEqual(len(languages.part5), 115)
-        self.assertEqual(len(languages.inverted), 7862)
+        self.assertEqual(len(languages.inverted), 7865)
         self.assertEqual(len(languages.macro), 62)
         self.assertEqual(len(languages.retired), 271)
 
     def test_len(self):
         self.assertIsInstance(len(languages), int)
-        self.assertEqual(len(languages), 7979)
+        self.assertEqual(len(languages), 7981)
 
     def test_iter(self):
         self.assertIsInstance(languages, collections.Iterable)
@@ -111,6 +113,7 @@ class CompatibilityChecks(unittest.TestCase):
     """
     Test cases for library class compatibility against pycountry.languages
     """
+
     @classmethod
     def setUpClass(cls):
         cls.pcterm = set(pclanguages.indices['terminology'].keys())
@@ -139,6 +142,7 @@ class LogicFunctionality(unittest.TestCase):
     """
     Test cases for example logic implementation
     """
+
     @classmethod
     def setUpClass(cls):
         cls.english = languages.get(name='English')
