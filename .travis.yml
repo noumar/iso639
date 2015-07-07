@@ -18,3 +18,11 @@ install:
   - "pip install pycountry==$PYCOUNTRY_VERSION"
 
 script: py.test -v tests/*.py README.rst
+
+deploy:
+  provider: pypi
+  user: noumar
+  password:
+    secure: NSOcudsP+ifu+01CS55CyloIRNJfR74NOWX4EQ0dRA16fiRs9a39hAKWAbIXOThgMwWdg7Zg/ygYgHemX5AiGCq7pXXuOUGqA/tRSgIwm3qGvbBgG/Va/ZuX7NqU02d1lSooegtmo+J/2CGJVgkvyTopY+yCviLcORr6F7T9ZkE=
+  on:
+    tags: true
