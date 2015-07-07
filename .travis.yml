@@ -1,4 +1,5 @@
 language: python
+
 python:
   - "2.6"
   - "2.7"
@@ -13,11 +14,16 @@ env:
   - PYCOUNTRY_VERSION=1.11
 
 install:
-  - "pip install -e ."
-  - "pip install unittest2"
-  - "pip install pycountry==$PYCOUNTRY_VERSION"
+  - pip install -e .
+  - travis_retry pip install unittest2
+  - travis_retry pip install pycountry==$PYCOUNTRY_VERSION
 
 script: py.test -v tests/*.py README.rst
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - python: "nightly"
 
 deploy:
   provider: pypi
@@ -25,4 +31,11 @@ deploy:
   password:
     secure: NSOcudsP+ifu+01CS55CyloIRNJfR74NOWX4EQ0dRA16fiRs9a39hAKWAbIXOThgMwWdg7Zg/ygYgHemX5AiGCq7pXXuOUGqA/tRSgIwm3qGvbBgG/Va/ZuX7NqU02d1lSooegtmo+J/2CGJVgkvyTopY+yCviLcORr6F7T9ZkE=
   on:
+    branch: master
     tags: true
+  distributions: sdist
+
+notifications:
+  email: false
+  flowdock:
+    secure: kEtntLtO1f80vLRhy3adTAsS7u14PaXQK/SwS5uCGnf6I0SpoMxCg3wdquekbrAjGfqcVKm0SOIIeP6jwEgqWRbEGtF5w/S9GtC5mCT/f4FgIrtfGkzrDtiJ9GDa+X6PaUqlWt6KTcAX2IZpob8sc6oKNDPY1cidV5dbWW+G1Ys=
