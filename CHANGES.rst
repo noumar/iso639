@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+0.4.4
+~~~~~
+- Changed ``retired`` to { 'code': (``datetime``, [``_Language``, ...], 'description') }
+
 0.4.3
 ~~~~~
 - ISO 639-3 files updated

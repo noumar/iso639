@@ -1,10 +1,10 @@
+# coding=utf-8
 """
 Python library for ISO 639 standard
 
 Copyright (c) 2014-2015 Mikael Karlsson (CSC - IT Center for Science Ltd.).
 Licensed under AGPLv3.
 """
-
 
 # Fix for Python 3.0 - 3.2
 if not __package__:
@@ -221,18 +221,28 @@ class Iso639(object):
 
     @lazy_property
     def retired(self):
+        """
+        Function for generating retired languages. Returns a dict('code', (datetime, [language, ...], 'description')).
+        """
+
         def gen():
             import csv
+            import re
+            from datetime import datetime
             from pkg_resources import resource_filename
 
             with open(resource_filename(__package__, 'iso-639-3_Retirements.tab')) as rf:
                 rtd = list(csv.reader(rf, delimiter='\t'))[1:]
                 rc = [r[0] for r in rtd]
-                for i, _, _, m, s, _ in rtd:
-                    if m and m not in rc:
-                        yield i, self.get(part3=m)
+                for i, _, _, m, s, d in rtd:
+                    d = datetime.strptime(d, '%Y-%m-%d')
+                    if not m:
+                        m = re.findall('\[([a-z]{3})\]', s)
+                    if m:
+                        m = [m] if isinstance(m, str) else m
+                        yield i, (d, [self.get(part3=x) for x in m if x not in rc], s)
                     else:
-                        yield i, s
+                        yield i, (d, [], s)
 
             yield 'sh', self.get(part3='hbs')  # Add 'sh' as deprecated
 
@@ -240,7 +250,7 @@ class Iso639(object):
 
     def get(self, **kwargs):
         """
-        A simple getter function for languages. Takes 1 keyword/value and returns 1 language object.
+        Simple getter function for languages. Takes 1 keyword/value and returns 1 language object.
         """
         if not len(kwargs) == 1:
             raise AttributeError('Only one keyword expected')

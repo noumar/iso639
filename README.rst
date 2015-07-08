@@ -24,6 +24,7 @@ Supports
 Breaking changes
 ----------------
 
+- 0.4.4: ``retired`` has been changed to { 'code': (``datetime``, [``_Language``, ...], 'description') }.
 - 0.4.0: ``alpha3`` has been renamed to ``part3``. ``languages.alpha3`` might be used as an aggregation of all ‘three letter codes’ in the future.
 
 Compatibility
@@ -101,6 +102,11 @@ As taken from ``pycountry.languages`` v1.11 documentation, with modifications an
      'part2t': 'arg',
      'part3': 'arg',
      'part5': ''}
+     >>> sanapana = languages.get(retired='sap')
+     >>> [type(elem).__name__ for elem in sanapana]
+     ['datetime', 'list', 'str']
+     >>> [lang.part3 for lang in sanapana[1]]
+     ['spn', 'aqt']
 
 Contains external data
 ----------------------

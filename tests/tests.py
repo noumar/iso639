@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Python library for ISO 639 standard
 
@@ -16,6 +17,7 @@ else:
 from iso639 import Iso639, languages
 from examples.logic import map_language
 from pycountry import languages as pclanguages
+from datetime import datetime
 
 
 class ClassFunctionality(unittest.TestCase):
@@ -45,16 +47,27 @@ class ClassFunctionality(unittest.TestCase):
 
     def test_retired_code(self):
         # TODO: self.assertEqual(languages.get(alpha3='ron').retired, 'mol')
-        self.assertEqual(languages.get(retired='mol'), languages.get(part3='ron'))
-        self.assertEqual(languages.retired['mol'], languages.part3['ron'])
-        self.assertIsInstance(languages.get(retired='nlr'), str)
-        self.assertIsInstance(languages.retired['nlr'], str)
-        self.assertEqual(languages.get(retired='sh'), languages.get(part3='hbs'))
-        self.assertEqual(languages.retired['sh'], languages.part3['hbs'])
+        assert languages.get(part3='ron') in languages.get(retired='mol')[1]
+        assert languages.part3['ron'] in languages.retired['mol'][1]
+        assert isinstance(languages.get(retired='ppr')[2], str)
+        assert isinstance(languages.retired['ppr'][2], str)
+        assert isinstance(languages.get(retired='ppr')[0], datetime)
+        assert isinstance(languages.retired['ppr'][0], datetime)
+        assert languages.get(retired='ppr')[1] == []
+        assert languages.retired['ppr'][1] == []
+        assert languages.get(retired='sh') is languages.get(part3='hbs')
+        assert languages.retired['sh'] is languages.part3['hbs']
+        assert languages.get(retired='ccy')[1] == [
+            languages.get(part3='zhn'),
+            languages.get(part3='zyg'),
+            languages.get(part3='zyn'),
+            languages.get(part3='zzj'),
+            languages.get(part3='zhd')]
 
     def test_name(self):
         self.assertEqual(languages.get(name='English').part3, 'eng')
         self.assertEqual(languages.name['English'].part3, 'eng')
+        assert languages.get(name='Sanapaná').part3 == 'spn'
 
     def test_alternative_name(self):
         self.assertEqual(languages.get(name='Romanian').part3, 'ron')
