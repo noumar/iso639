@@ -36,12 +36,24 @@ def _fabtabular():
     #     import io
     #     data_fo = io.StringIO(urlopen('http://www-01.sil.org/iso639-3/iso-639-3.tab').read().decode())
     #     inverted_fo = io.StringIO(urlopen('http://www-01.sil.org/iso639-3/iso-639-3_Name_Index.tab').read().decode())
-    data_fo = open(data)
-    inverted_fo = open(inverted)
-    macro_fo = open(macro)
-    part5_fo = open(part5)
-    part2_fo = open(part2)
-    part1_fo = open(part1)
+
+    try:
+        # Python 3.x
+        data_fo = open(data, encoding='utf-8')
+        inverted_fo = open(inverted, encoding='utf-8')
+        macro_fo = open(macro, encoding='utf-8')
+        part5_fo = open(part5, encoding='utf-8')
+        part2_fo = open(part2, encoding='utf-8')
+        part1_fo = open(part1, encoding='utf-8')
+    except TypeError:
+        # Python 2.x
+        data_fo = open(data)
+        inverted_fo = open(inverted)
+        macro_fo = open(macro)
+        part5_fo = open(part5)
+        part2_fo = open(part2)
+        part1_fo = open(part1)
+
     with data_fo as u:
         with inverted_fo as i:
             with macro_fo as m:
