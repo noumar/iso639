@@ -6,12 +6,14 @@ python:
   - "3.2"
   - "3.3"
   - "3.4"
+  - "3.5"
   - "nightly"
   - "pypy"
   - "pypy3"
 
 env:
   - PYCOUNTRY_VERSION=1.11
+  - PYCOUNTRY_VERSION=1.11 LC_ALL=C
 
 install:
   - pip install -e .
