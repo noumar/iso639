@@ -2,7 +2,7 @@
 """
 Python library for ISO 639 standard
 
-Copyright (c) 2014-2015 Mikael Karlsson (CSC - IT Center for Science Ltd.).
+Copyright (c) 2014-2016 Mikael Karlsson (CSC - IT Center for Science Ltd.).
 Licensed under AGPLv3.
 """
 
