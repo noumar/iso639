@@ -36,6 +36,13 @@ def _fabtabular():
     #     import io
     #     data_fo = io.StringIO(urlopen('http://www-01.sil.org/iso639-3/iso-639-3.tab').read().decode())
     #     inverted_fo = io.StringIO(urlopen('http://www-01.sil.org/iso639-3/iso-639-3_Name_Index.tab').read().decode())
+
+    if sys.version_info[0] == 3:
+        from functools import partial
+
+        global open
+        open = partial(open, encoding='utf-8')
+
     data_fo = open(data)
     inverted_fo = open(inverted)
     macro_fo = open(macro)

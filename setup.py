@@ -5,8 +5,15 @@ Copyright (c) 2014-2016 Mikael Karlsson (CSC - IT Center for Science Ltd.).
 Licensed under AGPLv3.
 """
 
+import sys
 from setuptools import setup, find_packages
 from iso639 import __version__
+
+if sys.version_info[0] == 3:
+    from functools import partial
+
+    global open
+    open = partial(open, encoding='utf-8')
 
 with open('README.rst') as f:
     for _ in range(5):
