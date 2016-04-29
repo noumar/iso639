@@ -8,6 +8,15 @@ Status
 
 |master_status| |dev_status| |pypi_month| |pypi_version| |gh_forks| |gh_stars|
 
+Installation
+------------
+
+.. code-block:: bash
+
+    pip install iso-639
+
+(note that `iso639` on PyPI is another library)
+
 License
 -------
 
