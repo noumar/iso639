@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+0.4.5
+~~~~~
+- Support LC_ALL=C
+
 0.4.4
 ~~~~~
 - Changed ``retired`` to { 'code': (``datetime``, [``_Language``, ...], 'description') }
