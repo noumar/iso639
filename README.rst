@@ -25,7 +25,7 @@ Breaking changes
 ----------------
 
 - 0.4.4: ``retired`` has been changed to { 'code': (``datetime``, [``_Language``, ...], 'description') }.
-- 0.4.0: ``alpha3`` has been renamed to ``part3``. ``languages.alpha3`` might be used as an aggregation of all ‘three letter codes’ in the future.
+- 0.4.0: ``alpha3`` has been renamed to ``part3``. ``languages.alpha3`` might be used as an aggregation of all 'three letter codes' in the future.
 
 Compatibility
 -------------
