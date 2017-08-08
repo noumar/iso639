@@ -102,6 +102,16 @@ As taken from ``pycountry.languages`` v1.11 documentation, with modifications an
      'part2t': 'arg',
      'part3': 'arg',
      'part5': ''}
+     >>> pprint(vars(languages.get(name="French")))
+     {'inverted': 'French',
+      'macro': '',
+      'name': 'French',
+      'names': [],
+      'part1': 'fr',
+      'part2b': 'fre',
+      'part2t': 'fra',
+      'part3': 'fra',
+      'part5': ''}
      >>> sanapana = languages.get(retired='sap')
      >>> [type(elem).__name__ for elem in sanapana]
      ['datetime', 'list', 'str']
