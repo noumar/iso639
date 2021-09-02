@@ -47,7 +47,7 @@ setup(
     author='Mikael Karlsson',
     author_email='i8myshoes@gmail.com',
     url='https://github.com/noumar/iso639',
-    license='AGPLv3',
+    license='AGPL-3.0',
     packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
     package_data={'': ['*.tab', '*.tsv']},
     zip_safe=False,
