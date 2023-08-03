@@ -244,7 +244,7 @@ class Iso639(object):
                 for i, _, _, m, s, d in rtd:
                     d = datetime.strptime(d, '%Y-%m-%d')
                     if not m:
-                        m = re.findall('\[([a-z]{3})\]', s)
+                        m = re.findall(r'\[([a-z]{3})\]', s)
                     if m:
                         m = [m] if isinstance(m, str) else m
                         yield i, (d, [self.get(part3=x) for x in m if x not in rc], s)
