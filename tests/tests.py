@@ -2,8 +2,8 @@
 """
 Python library for ISO 639 standard
 
-Copyright (c) 2014-2016 Mikael Karlsson (CSC - IT Center for Science Ltd.).
-Licensed under AGPLv3.
+Copyright (c) 2014-2023 Mikael Karlsson (CSC - IT Center for Science Ltd.).
+Licensed under AGPL-3.0-only.
 """
 
 import sys
