@@ -1,0 +1,77 @@
+name: Python package
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Lint with flake8
+        run: |
+          pip install flake8
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - "pypy:2.7"
+          - "pypy:3.5"
+          - "pypy:3.6"
+          - "pypy:3.7"
+          - "pypy:3.8"
+          - "pypy:3.9"
+          - "pypy:3.10"
+          - "python:2.7"
+          - "python:3.2"
+          - "python:3.3"
+          - "python:3.4"
+          - "python:3.5"
+          - "python:3.6"
+          - "python:3.7"
+          - "python:3.8"
+          - "python:3.9"
+          - "python:3.10"
+          - "python:3.11"
+          - "python:3.12"
+    container: ${{ matrix.image }}-slim
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: |
+          # pip install --upgrade pip
+          command -v python3.2 && export PYTEST_VERSION='<3'
+          pip install pytest$PYTEST_VERSION pycountry==1.11
+          pip install -e .
+      - name: Test with pytest
+        run: |
+          py.test
+  test-py26:
+    runs-on: ubuntu-latest
+    container: centos:6
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: |
+          # sed -i '/^mirrorlist/s/^/#/;/^#baseurl/{s/#//;s/mirror.centos.org/vault.centos.org/}' /etc/yum.repos.d/*B*
+          # yum clean all
+          # yum upgrade -y
+          # yum install -y epel-release
+          curl https://pylegacy.org/hub/get-pip-pyopenssl.py | python
+          pip install unittest2 pytest pycountry==1.11
+          pip install -e .
+      - name: Test with pytest
+        run: |
+          py.test

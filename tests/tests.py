@@ -2,17 +2,21 @@
 """
 Python library for ISO 639 standard
 
-Copyright (c) 2014-2016 Mikael Karlsson (CSC - IT Center for Science Ltd.).
-Licensed under AGPLv3.
+Copyright (c) 2014-2023 Mikael Karlsson (CSC - IT Center for Science Ltd.).
+Licensed under AGPL-3.0-only.
 """
 
 import sys
-import collections
 
 if sys.version_info[0:2] == (2, 6):
     import unittest2 as unittest
 else:
     import unittest
+
+if sys.version_info[0] == 3 and sys.version_info[1] > 2:
+    from collections.abc import Iterable, Iterator
+else:
+    from collections import Iterable, Iterator
 
 from iso639 import Iso639, languages
 from examples.logic import map_language
@@ -112,8 +116,8 @@ class ClassFunctionality(unittest.TestCase):
         self.assertEqual(len(languages), 7981)
 
     def test_iter(self):
-        self.assertIsInstance(languages, collections.Iterable)
-        self.assertIsInstance(iter(languages), collections.Iterator)
+        self.assertIsInstance(languages, Iterable)
+        self.assertIsInstance(iter(languages), Iterator)
 
     def test_exceptions(self):
         self.assertRaises(KeyError, languages.get, part1='En')  # Wrong value

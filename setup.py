@@ -1,8 +1,8 @@
 """
 Python library for ISO 639 standard
 
-Copyright (c) 2014-2017 Mikael Karlsson (CSC - IT Center for Science Ltd.).
-Licensed under AGPLv3.
+Copyright (c) 2014-2023 Mikael Karlsson (CSC - IT Center for Science Ltd.).
+Licensed under AGPL-3.0-only.
 """
 
 import sys
@@ -40,6 +40,12 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Text Processing :: Linguistic',
